@@ -5,6 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <style>
+
+        body{
+            height:100%;
+            width: 100%;
+            background-color: var(--color-fondo);
+        }
         :root{
             --fuente-general: arial, sans-serif;
             --color-principal: rgb(14, 13, 13);
@@ -33,6 +39,7 @@
             font-size: var(--tamaño-letra2);
             font-family: var(--fuente-general);
             color: var(--color-secundario);
+            margin: 5px;
         }
         section{
             background-color: var(--color-apartados);
@@ -45,7 +52,8 @@
         .tarea{
             display: flex;
             align-items: center;
-            justify-content: center;
+            padding: 10px;
+            justify-content: space-between;
             background-color: var(--color-apartados);
         }
         .contenedor{ 
@@ -55,10 +63,14 @@
             color: var(--color-secundario);}
         @media (max-width: 768px){
             .contenedor{ 
-            display: column;
+            flex-direction: column;
             font-size: var(--tamaño-letra2);
             font-family: var(--fuente-general);
             color: var(--color-secundario);}
+        }
+        p{
+            padding: 5px;
+            margin: 5px;
         }
 
     </style>
@@ -70,31 +82,33 @@
         <section>Ejercicios
 
             <div class="tarea">
-                <h1>Hacer una aplicación</h1>
+                <h2>Hacer una aplicación</h2>
                 <p>Hacerla con JS</p>
                 <p>Estandar de calidad</p>
             </div>
 
             <div class="tarea">
-                <h1>Publicar una Web</h1>
+                <h2>Publicar una Web</h2>
                 <p>Diseño responsive</p>
                 <p>Adaptada a las indicaciones</p>
             </div>
 
             <div class="tarea">
-                <h1>Crear una base de datos</h1>
+                <h2>Crear una base de datos</h2>
                 <p>Hacer 3 tablas</p>
                 <p>Añadir id</p>
             </div>
         </section>
-       
-    </div>
-     </main>
-     <aside>
+
+        <aside>
         <h1>Normas</h1>
         <p>Añadir nombre completo</p>
         <p>Estar las horas acordadas</p>
         <p>Entrega a tiempo</p>
      </aside>
+
+    </div>
+     </main>
+    
 </body>
 </html>
