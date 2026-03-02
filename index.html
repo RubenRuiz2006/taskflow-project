@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        :root{
+            --fuente-general: arial, sans-serif;
+            --color-principal: rgb(14, 13, 13);
+            --color-secundario: rgb(56, 53, 53);
+            --tamaño-letra1: 20px;
+            --tamaño-letra2: 15px;
+            --color-fondo:#e4e6e9;
+            --color-apartados: #eeedba;
+        }
+
+        header{
+            background-color: var(--color-fondo);
+            font-size: var(--tamaño-letra1);
+            font-family: var(--fuente-general);
+            color: var(--color-principal);
+        }
+        main{
+            background-color: var(--color-fondo);
+            font-size: var(--tamaño-letra2);
+            font-family: var(--fuente-general);
+            color: var(--color-secundario);
+        }
+        aside{
+            background-color: var(--color-fondo);
+            left: 15px;
+            font-size: var(--tamaño-letra2);
+            font-family: var(--fuente-general);
+            color: var(--color-secundario);
+        }
+        section{
+            background-color: var(--color-apartados);
+            font-size: var(--tamaño-letra2);
+            font-family: var(--fuente-general);
+            color: var(--color-secundario);
+            border-radius: 4px;
+        }
+
+        .tarea{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: var(--color-apartados);
+        }
+        .contenedor{ 
+            display: flex;
+            font-size: var(--tamaño-letra2);
+            font-family: var(--fuente-general);
+            color: var(--color-secundario);}
+        @media (max-width: 768px){
+            .contenedor{ 
+            display: column;
+            font-size: var(--tamaño-letra2);
+            font-family: var(--fuente-general);
+            color: var(--color-secundario);}
+        }
+
+    </style>
+</head>
+<body>
+    <header>Practicas</header>
+    <main>
+    <div class="contenedor">
+        <section>Ejercicios
+
+            <div class="tarea">
+                <h1>Hacer una aplicación</h1>
+                <p>Hacerla con JS</p>
+                <p>Estandar de calidad</p>
+            </div>
+
+            <div class="tarea">
+                <h1>Publicar una Web</h1>
+                <p>Diseño responsive</p>
+                <p>Adaptada a las indicaciones</p>
+            </div>
+
+            <div class="tarea">
+                <h1>Crear una base de datos</h1>
+                <p>Hacer 3 tablas</p>
+                <p>Añadir id</p>
+            </div>
+        </section>
+       
+    </div>
+     </main>
+     <aside>
+        <h1>Normas</h1>
+        <p>Añadir nombre completo</p>
+        <p>Estar las horas acordadas</p>
+        <p>Entrega a tiempo</p>
+     </aside>
+</body>
+</html>
