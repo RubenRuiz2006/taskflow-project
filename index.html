@@ -5,51 +5,51 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="dist/styles.css">
 </head>
 
-<body>
-    <header>Prácticas</header>
+<body class="bg-white">
+    <header class="text-4xl p-4 bg-indigo-600 text-white">Prácticas</header>
     <main>
         <div class="contenedor" id="contenedor">
-            <section id="section">
+            <section id="section" >
 
                 
             </section>
-            <button id="botónAñadir" class="botonAñadir">Añadir tarea</button>
+            <button id="botonAñadir" class="text-blue-500 cursor-pointer bg-gray-200 p-3 border border-black hover:bg-indigo-600 hover:text-white transition duration-300">Añadir tarea</button>
 
             <aside>
-                <h2 class="normas">Normas:</h2>
-                <ul>
-                    <li>Añadir nombre completo</li>
-                    <li>Estar las horas acordadas</li>
-                    <li>Entregar a tiempo</li>
+                <h2 class="text-2xl p-3 underline"><strong>Normas:</strong></h2>
+                <ul class="list-disc ml-10">
+                    <li class="mb-1">Añadir nombre completo</li>
+                    <li class="mb-1">Estar las horas acordadas</li>
+                    <li class="mb-1">Entregar a tiempo</li>
                 </ul>
             </aside>
 
         </div>
-        <div class="ventanaAñadir" id="ventanaAñadir">
+        <div class="ventanaAñadir bg-yellow-100 shadow-xl fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 p-2.5 flex flex-col items-start justify-start border border-black w-[350px] h-[350px]  " id="ventanaAñadir">
 
             <label for="nombre">
-                <h2>Nombre de la tarea</h2>
+                <h2 class="text-2xl p-3"><strong>Nombre de la tarea</strong></h2>
             </label>
-            <input type="text" id="nombre" placeholder="Nombre de la tarea">
+            <input type="text" id="nombre" placeholder="Nombre de la tarea" class=" border h-10 w-70 bg-white ml-3">
 
             <label for="categoría">
-                <h2>Categoría de la tarea</h2>
+                <h2 class="text-2xl p-3"><strong>Categoría de la tarea</strong></h2>
             </label>
-            <input type="text" id="categoría" placeholder="Categoría de la tarea">
+            <input type="text" id="categoría" placeholder="Categoría de la tarea" class=" border h-10 w-70 bg-white ml-3">
 
             <label for="prioridad">
-                <h2>Prioridad de la tarea</h2>
+                <h2 class="text-2xl p-3"><strong>Prioridad de la tarea</strong></h2>
             </label>
-            <select id="prioridad">
+            <select id="prioridad" class="ml-3 border h-10 w-70 bg-white ml-3">
                 <option value="Baja">Baja </option>
                 <option value="Media">Media </option>
                 <option value="Alta">Alta </option>
 
             </select>
-            <button class="botonConfirmar" id="botonConfirmar">Añadir</button>
+            <button class="m-3 text-blue-500 cursor-pointer bg-gray-200 p-3 rounded border border-black hover:bg-indigo-600 hover:text-white transition duration-300" id="botonConfirmar">Añadir</button>
 
         </div>
         <script src="code.js"></script>

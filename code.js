@@ -1,5 +1,5 @@
  const contenedor = document.getElementById("contenedor")
- const añadir= document.getElementById("botónAñadir")
+ const añadir= document.getElementById("botonAñadir")
  const ventanaAñadir = document.getElementById("ventanaAñadir")
 const btnConfirmar = document.getElementById("botonConfirmar")
 const section = document.getElementById("section")
@@ -15,21 +15,28 @@ if(tareasGuardadas){
 
 añadir.addEventListener("click", () =>{ //boton para ir a la ventana de añadir tarea
 ventanaAñadir.style.display="flex";
-contenedor.style.display="none"
+contenedor.style.display="none";
 })
 
 
 function crearTarea(nombre, categoría, prioridad){ //función para solo crear la tarea en el DOM
     
 const nuevaTarea = document.createElement("div");
-nuevaTarea.className="tarea";
+nuevaTarea.className="tarea bg-yellow-100 w-150 h-30 flex items-center justify-between p-2.5 border border-black hover:bg-blue-200 transition duration-500";
+
+const colorPrioridad={
+    "Alta": "text-red-600",
+    "Media":"text-orange-400",
+    "Baja": "text-green-600"
+}
+
 nuevaTarea.innerHTML=`
-<h2>${nombre}</h2>
+<h2 class="text-3xl">${nombre}</h2>
 <ul>
     <li><strong>Categoría:</strong> ${categoría}</li>
-    <li class="${prioridad}"><strong>Prioridad:</strong> ${prioridad}</li>
+    <li class="${colorPrioridad[prioridad]}"><strong>Prioridad:</strong> ${prioridad}</li>
 </ul>
-<button class="buttonQuitar">Quitar</button>`
+<button class="buttonQuitar text-blue-500 cursor-pointer bg-gray-200 p-3 rounded border border-black hover:bg-indigo-600 hover:text-white transition duration-300 mr-3">Quitar</button>`
 section.appendChild(nuevaTarea)
 
 
