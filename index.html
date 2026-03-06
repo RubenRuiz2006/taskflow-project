@@ -109,11 +109,12 @@
         }
 
         section {
-            background-color: var(--color-apartados);
+            
             font-size: var(--tamaño-letra2);
             font-family: var(--fuente-general);
             color: var(--color-secundario);
             border-radius: 4px;
+            
         }
 
         .tarea {
@@ -139,6 +140,7 @@
             font-size: var(--tamaño-letra2);
             font-family: var(--fuente-general);
             color: var(--color-secundario);
+            
         }
 
         @media (max-width: 768px) {
@@ -170,6 +172,9 @@
         .Baja{
             color: rgb(11, 180, 11);
         }
+        .botonAñadir{
+            padding: 5px;
+        }
 
     </style>
 </head>
@@ -180,34 +185,7 @@
         <div class="contenedor" id="contenedor">
             <section id="section">
 
-                <div class="tarea">
-                    <h2>Hacer una aplicación:</h2>
-                    <ul>
-                        <li><strong>Categoría:</strong> JavaScript</li>
-                        <li class="Media"><strong>Prioridad:</strong> Media</li>
-                    </ul>
-                    <button class="buttonQuitar">Quitar</button>
-                </div>
-
-                <div class="tarea">
-                    <h2>Publicar una Web:</h2>
-                    <ul>
-                        <li><strong>Categoría:</strong> HTML</li>
-                        <li class="Baja"><strong>Prioridad:</strong> Baja</li>
-                    </ul>
-                    <button class="buttonQuitar">Quitar</button>
-                </div>
-
-                <div class="tarea">
-                    <h2>Crear una base de datos:</h2>
-                    <ul>
-
-                        <li><strong>Categoría:</strong> MySQL</li>
-                        <li class="Alta"><strong>Prioridad:</strong> Alta</li>
-                    </ul>
-                    <button class="buttonQuitar">Quitar</button>
-                </div>
-
+                
             </section>
             <button id="botónAñadir" class="botonAñadir">Añadir tarea</button>
 
