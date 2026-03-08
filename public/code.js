@@ -14,8 +14,9 @@ if(tareasGuardadas){
 } 
 
 añadir.addEventListener("click", () =>{ //boton para ir a la ventana de añadir tarea
-ventanaAñadir.style.display="flex";
-contenedor.style.display="none";
+    ventanaAñadir.classList.remove("hidden")
+    ventanaAñadir.classList.add("flex")
+    contenedor.classList.add("hidden")
 })
 
 
