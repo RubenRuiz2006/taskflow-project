@@ -514,6 +514,17 @@ body.dark .buttonQuitar:hover{
  background-color: #111827; 
  color: #fff;
 }
+body.dark .buttonQuitar{
+ border-color: #111827;
+}
 body.dark  option{
   background-color: #111827;
+}
+body.dark .buttonAgregar:hover{
+  background-color:  #111827;
+  color:#fff;
+}
+body.dark .buttonAgregar{
+  background-color: #4b5563;
+  border-color: black;
 }
