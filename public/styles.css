@@ -469,4 +469,51 @@
       --tw-duration: initial;
     }
   }
+}/* Transición suave para todos los cambios de color */
+body, header, .ventanaAñadir, .tarea, input, select, button {
+    transition: background-color 0.5s, color 0.5s, border-color 0.5s;
+}
+
+/* Estilos de modo oscuro */
+body.dark {
+    background-color: #1f2937; /* gris oscuro */
+    color: #f9fafb; /* texto claro */
+}
+
+body.dark header {
+    background-color: #111827; /* header oscuro */
+}
+
+body.dark .ventanaAñadir {
+    background-color: #374151;
+    color: #f9fafb;
+}
+
+body.dark .tarea {
+    background-color: #4b5563;
+    color: #f9fafb;
+}
+
+body.dark input,
+body.dark select,
+body.dark button {
+    background-color:transparent;
+    color: #f9fafb;
+    border-color: #d1d5db;
+}
+body.dark .botonAñadir:hover{
+  background-color:  #111827;
+  color:#fff;
+}
+body.dark .botonAñadir{
+  background-color: #4b5563;
+  border-color: black;
+}
+
+body.dark .buttonQuitar:hover{
+ background-color: #111827; 
+ color: #fff;
+}
+body.dark  option{
+  background-color: #111827;
 }

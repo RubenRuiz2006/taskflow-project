@@ -9,14 +9,24 @@
 </head>
 
 <body class="bg-white">
-    <header class="text-4xl p-4 bg-indigo-600 text-white">Prácticas</header>
+    
+    <header class="text-4xl p-4 bg-indigo-600 text-white flex items-center justify-between"> <span>Prácticas</span>
+        <button id="botonTema"
+        class="ml-4 px-3 cursor-pointer py-1  
+                hover:text-white transition-colors duration-500 
+                flex items-center justify-center gap-2 bg-transparent">
+        <svg id="iconoTema" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24" width="48" height="48">
+            <path d="M21 12.79A9 9 0 1111.21 3a7 7 0 109.79 9.79z"/>
+        </svg>
+                </button>
+    </header>
     <main>
         <div class="contenedor" id="contenedor" style="display: flex;">
             <section id="section" >
 
                 
             </section>
-            <button id="botonAñadir" class="text-blue-500 cursor-pointer bg-gray-200 p-3 border border-black hover:bg-indigo-600 hover:text-white transition duration-300">Añadir tarea</button>
+            <button id="botonAñadir" class="botonAñadir text-blue-500 cursor-pointer bg-gray-200 p-3 border border-black hover:bg-indigo-600 hover:text-white transition duration-300">Añadir tarea</button>
 
             <aside>
                 <h2 class="text-2xl p-3 underline"><strong>Normas:</strong></h2>
@@ -28,6 +38,7 @@
             </aside>
 
         </div>
+        
         <div class="ventanaAñadir bg-yellow-100 shadow-xl fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 p-2.5 flex flex-col items-start justify-start border border-black w-[350px] h-[350px]  " style="display: none;" id="ventanaAñadir">
 
             <label for="nombre">

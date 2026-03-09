@@ -3,7 +3,52 @@
  const ventanaAñadir = document.getElementById("ventanaAñadir")
 const btnConfirmar = document.getElementById("botonConfirmar")
 const section = document.getElementById("section")
+const overlay =document.getElementById("overlay")
 let tareas=[];
+
+
+const botonTema = document.getElementById("botonTema");
+
+
+
+const iconoLuna = `<svg id="iconoTema" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24" width="40" height="40">
+<path d="M21 12.79A9 9 0 1111.21 3a7 7 0 109.79 9.79z"/>
+</svg>`;
+
+const iconoSol = `<svg id="iconoTema" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24" width="40" height="40">
+  <circle cx="12" cy="12" r="5"/>
+  <line x1="12" y1="1" x2="12" y2="5" stroke="currentColor" stroke-width="2"/>
+  <line x1="12" y1="19" x2="12" y2="23" stroke="currentColor" stroke-width="2"/>
+  <line x1="1" y1="12" x2="5" y2="12" stroke="currentColor" stroke-width="2"/>
+  <line x1="19" y1="12" x2="23" y2="12" stroke="currentColor" stroke-width="2"/>
+  <line x1="4" y1="4" x2="7" y2="7" stroke="currentColor" stroke-width="2"/>
+  <line x1="17" y1="17" x2="20" y2="20" stroke="currentColor" stroke-width="2"/>
+  <line x1="4" y1="20" x2="7" y2="17" stroke="currentColor" stroke-width="2"/>
+  <line x1="17" y1="7" x2="20" y2="4" stroke="currentColor" stroke-width="2"/>
+</svg>`;
+if(localStorage.getItem("tema") === "oscuro"){
+    document.body.classList.add("dark");
+    botonTema.innerHTML = iconoSol;
+} else {
+    botonTema.innerHTML = iconoLuna;
+}
+
+// Listener del botón
+botonTema.addEventListener("click", () => {
+    document.body.classList.toggle("dark");
+
+    // Cambiar el icono según el modo
+    if(document.body.classList.contains("dark")){
+        botonTema.innerHTML = iconoSol;
+        localStorage.setItem("tema", "oscuro");
+    } else {
+        botonTema.innerHTML = iconoLuna;
+        localStorage.setItem("tema", "claro");
+    }
+});
+
+
+
 
 const tareasGuardadas=localStorage.getItem("tareas"); //miramos si existen tareas guardadas en localStorage
 if(tareasGuardadas){
