@@ -196,15 +196,15 @@ function ordenarPorPrioridad() {
 function renderTarea({ nombre, categoria, prioridad }) {
     const nuevaTarea = document.createElement("div");
     nuevaTarea.className =
-        "tarea bg-yellow-100 w-150 h-30 flex items-center justify-between p-2.5 border border-black hover:bg-blue-200 transition duration-500";
+        "tarea rounded bg-white w-150 h-30 flex items-center justify-between p-2.5 border border-black hover:bg-cyan-100 transition duration-500";
 
     nuevaTarea.innerHTML = `
-<h2 class="text-3xl">${nombre}</h2>
+<h2 class="text-3xl text-cyan-700 textoB">${nombre}</h2>
 <ul>
-    <li><strong>Categoría:</strong> ${categoria}</li>
+    <li class="text-cyan-700 textoB"><strong>Categoría:</strong> ${categoria}</li>
     <li class="${getColorPrioridad(prioridad)}"><strong>Prioridad:</strong> ${prioridad}</li>
 </ul>
-<button class="buttonQuitar text-blue-500 cursor-pointer bg-gray-200 p-3 rounded border border-black hover:bg-indigo-600 hover:text-white transition duration-300 mr-3">Quitar</button>`
+<button class="buttonQuitar text-cyan-700 cursor-pointer bg-gray-200 p-3 rounded border border-black hover:bg-cyan-700 hover:text-white transition duration-300 mr-3">Quitar</button>`
     section.appendChild(nuevaTarea)
 
     const btnQuitar = nuevaTarea.querySelector(".buttonQuitar") // dentro le añadimos el boton para eliminarlo

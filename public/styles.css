@@ -536,3 +536,10 @@ body.dark .buttonAgregar{
   background-color: #4b5563;
   border-color: black;
 }
+body.dark .textoB{
+ color: #f9fafb;
+}
+body.dark .tarea:hover{
+  background-color:  #222f4b;
+  color:#fff;
+}
