@@ -1,6 +1,7 @@
 window.addEventListener("DOMContentLoaded", () => {
 const contenedor = document.getElementById("contenedor")
 const btnAnadir = document.getElementById("botonAñadir")
+const btnOrdenarPrioridad = document.getElementById("botonOrdenarPrioridad")
 const ventanaAñadir = document.getElementById("ventanaAñadir")
 const btnConfirmar = document.getElementById("botonConfirmar")
 const section = document.getElementById("section")
@@ -11,7 +12,7 @@ const selectPrioridad = document.getElementById("prioridad")
 
 const botonTema = document.getElementById("botonTema");
 
-if (!contenedor || !btnAnadir || !ventanaAñadir || !btnConfirmar || !section || !inputNombre || !inputCategoria || !selectPrioridad || !botonTema) {
+if (!contenedor || !btnAnadir || !btnOrdenarPrioridad || !ventanaAñadir || !btnConfirmar || !section || !inputNombre || !inputCategoria || !selectPrioridad || !botonTema) {
     console.error("Faltan elementos en el DOM. Revisa los id en index.html.")
     return
 }
@@ -158,6 +159,7 @@ function getDatosFormulario() {
 }
 
 btnAnadir.addEventListener("click", abrirVentanaAñadir) // boton para ir a la ventana de añadir tarea
+btnOrdenarPrioridad.addEventListener("click", ordenarPorPrioridad)
 
 
 /**
@@ -172,6 +174,22 @@ function getColorPrioridad(prioridad) {
         Baja: "text-green-600",
     }
     return colorPrioridad[prioridad] ?? ""
+}
+
+/**
+ * Ordena el array `tareas` por prioridad (Alta → Media → Baja),
+ * repinta la lista y persiste el nuevo orden.
+ * @returns {void}
+ */
+function ordenarPorPrioridad() {
+    /** @type {Record<Prioridad, number>} */
+    const orden = { Alta: 0, Media: 1, Baja: 2 }
+
+    tareas.sort((a, b) => (orden[a.prioridad] ?? 999) - (orden[b.prioridad] ?? 999))
+    guardarTareas()
+
+    section.innerHTML = ""
+    tareas.forEach(renderTarea)
 }
 
 /**

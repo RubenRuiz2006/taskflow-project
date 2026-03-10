@@ -509,6 +509,14 @@ body.dark .botonAñadir{
   background-color: #4b5563;
   border-color: black;
 }
+body.dark .botonOrdenarPrioridad:hover{
+  background-color:  #111827;
+  color:#fff;
+}
+body.dark .botonOrdenarPrioridad{
+  background-color: #4b5563;
+  border-color: black;
+}
 
 body.dark .buttonQuitar:hover{
  background-color: #111827; 
