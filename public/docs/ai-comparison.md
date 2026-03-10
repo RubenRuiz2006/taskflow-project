@@ -44,8 +44,7 @@ Hazme una aplicación que se conecte con la API de Pokémon para poder ver debil
 
 Las dos han sido capaces de crearla pero claramente la de Claude es de mucha más calidad en cuanto a acabado e interfaz.
 
-Finalmente les he pedido que me hicieran una aplicación todavía más profesional sobre los personajes de Dragon Ball, 
-confirmando lo que ya habíamos probado.
+Finalmente les he pedido que me hicieran una aplicación todavía más profesional sobre los personajes de Dragon Ball, confirmando lo que ya habíamos probado.
 Claude ha creado una aplicación entera con más de 800 lineas de código, mientras ChatGPT no ha podido ni hacer que funcione. 
 
 

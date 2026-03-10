@@ -113,11 +113,7 @@ function cargarTareas() {
  * @param {any} t
  * @returns {Tarea}
  */
-function normalizarTareaGuardada(t) {
-    // Compatibilidad: antes se guardaba como "categoría"
-    const categoria = t?.categoria ?? t?.["categoría"] ?? ""
-    return { nombre: t?.nombre ?? "", categoria, prioridad: t?.prioridad ?? "Baja" }
-}
+
 
 /**
  * Muestra la ventana/modal de alta de tarea y oculta el contenedor principal.
@@ -254,7 +250,7 @@ btnConfirmar.addEventListener("click", () => { //para enviar el formulario
  * @returns {void}
  */
 function init() {
-    tareas = cargarTareas().map(normalizarTareaGuardada)
+    tareas = cargarTareas()
     tareas.forEach(renderTarea)
 }
 
