@@ -1,4 +1,4 @@
-1. INTRODUCCIÓN
+# 1. INTRODUCCIÓN
 
 En este documento estoy comparando las respuestas de las inteligencias artificiales ChatGPT y Claude.
 Queremos comparar principalmente:
@@ -6,7 +6,7 @@ Queremos comparar principalmente:
 -Profundidad en las respuestas
 -Ejemplos aportados
 
-2. COMPARACIÓN
+# 2. COMPARACIÓN
 
 Para poner en práctica esto he procedido a preguntarle sobre tres conceptos a cada uno, estos han sido:
 -Cluster de servidores
@@ -20,7 +20,7 @@ He podido observar que en el ámbito de profundizar ambos están en un nivel muy
 
 En términos de ejemplos podemos ver que ChatGPT pone ejemplos un poco más elaborados y extensos que Claude.
 
-3. EXPLICACIÓN DE ERRORES
+# 3. EXPLICACIÓN DE ERRORES
 
 Para esta prueba le enviaré tres errores intencionales de un código JavaScript para ver como lo solucionan y explican el problema.
 He decidido primero mandarle un error muy sencillo de escritura de código para ver como manejan errores sencillos comparandolos con errores más difíciles de detectar
@@ -31,7 +31,7 @@ Podemos observar que ambos son bastante concisos en sus respuestas, argumentánd
 En el segundo problema le he adjuntado un código de más de 150 lineas de código con errores muy concretos de localStorage y de una variable a la cual le faltaba el .value al recuperarla.
 Como he comprobado anteriormente ChatGPT elabora bastante más sus respuestas, yéndose a la raíz del problema y explicando que problemas puede ocasionar, mientras que Claude se centra más en corregirlo solamente.
 
-4. GENERACIÓN DE CÓDIGO
+# 4. GENERACIÓN DE CÓDIGO
 En este punto les plantearé 3 ideas para que ellos me generen el código necesario para ejecutarlo, tendré en cuenta el acabado.
 A ambas inteligencias artificiales les he preguntado: 
 -¿Cómo puedo generar una lista de la compra con la opción de escribir lo que quieres almacenar y después mediante un botón recargar esa lista para que incluya ese objeto? dame el código solo para que yo tenga que pegarlo, añadele estilos profesionales
