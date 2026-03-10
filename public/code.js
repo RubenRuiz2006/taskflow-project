@@ -3,7 +3,7 @@
  const ventanaAñadir = document.getElementById("ventanaAñadir")
 const btnConfirmar = document.getElementById("botonConfirmar")
 const section = document.getElementById("section")
-const overlay =document.getElementById("overlay")
+
 let tareas=[];
 
 
@@ -54,7 +54,7 @@ const tareasGuardadas=localStorage.getItem("tareas"); //miramos si existen tarea
 if(tareasGuardadas){
     tareas = JSON.parse(tareasGuardadas)
      tareas.forEach(t => {
-        crearTarea(t.nombre, t.categoría, t.prioridad)
+        crearTarea(t.nombre, t.categoria, t.prioridad)
     })
 } 
 
@@ -64,7 +64,7 @@ contenedor.style.display="none";
 })
 
 
-function crearTarea(nombre, categoría, prioridad){ //función para solo crear la tarea en el DOM
+function crearTarea(nombre, categoria, prioridad){ //función para solo crear la tarea en el DOM
     
 const nuevaTarea = document.createElement("div");
 nuevaTarea.className="tarea bg-yellow-100 w-150 h-30 flex items-center justify-between p-2.5 border border-black hover:bg-blue-200 transition duration-500";
@@ -78,7 +78,7 @@ const colorPrioridad={
 nuevaTarea.innerHTML=`
 <h2 class="text-3xl">${nombre}</h2>
 <ul>
-    <li><strong>Categoría:</strong> ${categoría}</li>
+    <li><strong>Categoría:</strong> ${categoria}</li>
     <li class="${colorPrioridad[prioridad]}"><strong>Prioridad:</strong> ${prioridad}</li>
 </ul>
 <button class="buttonQuitar text-blue-500 cursor-pointer bg-gray-200 p-3 rounded border border-black hover:bg-indigo-600 hover:text-white transition duration-300 mr-3">Quitar</button>`
@@ -95,7 +95,7 @@ btnQuitar.addEventListener("click", () => { //boton para borrar cada tarea del D
 
 
 document.getElementById("nombre").value=""
-document.getElementById("categoría").value=""
+document.getElementById("categoria").value=""
 
 
 ventanaAñadir.style.display="none"
@@ -106,20 +106,20 @@ contenedor.style.display="flex"
 
 btnConfirmar.addEventListener("click", () => { //para enviar el formulario
     const nombre = document.getElementById("nombre").value
-    const categoría = document.getElementById("categoría").value
+    const categoria = document.getElementById("categoria").value
     const prioridad = document.getElementById("prioridad").value
 
-    if (nombre != "" && categoría != "") { //me aseguro de que introduzcan esos datos
+    if (nombre.trim() != "" && categoria.trim() != "") { //me aseguro de que introduzcan esos datos
 
         const tarea = { //aquí añadimos esta nueva tarea al array para guardarlo posteriormente en localstorage
             nombre: nombre,
-            categoría: categoría,
+            categoria: categoria,
             prioridad: prioridad
         };
 
         tareas.push(tarea);
         localStorage.setItem("tareas", JSON.stringify(tareas))
-        crearTarea(nombre, categoría, prioridad)
+        crearTarea(nombre, categoria, prioridad)
 
     } else {
         alert("Debe rellenar cada campo")
