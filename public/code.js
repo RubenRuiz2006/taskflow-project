@@ -1,13 +1,34 @@
- const contenedor = document.getElementById("contenedor")
- const añadir= document.getElementById("botonAñadir")
- const ventanaAñadir = document.getElementById("ventanaAñadir")
+window.addEventListener("DOMContentLoaded", () => {
+const contenedor = document.getElementById("contenedor")
+const btnAnadir = document.getElementById("botonAñadir")
+const ventanaAñadir = document.getElementById("ventanaAñadir")
 const btnConfirmar = document.getElementById("botonConfirmar")
 const section = document.getElementById("section")
 
-let tareas=[];
-
+const inputNombre = document.getElementById("nombre")
+const inputCategoria = document.getElementById("categoria")
+const selectPrioridad = document.getElementById("prioridad")
 
 const botonTema = document.getElementById("botonTema");
+
+if (!contenedor || !btnAnadir || !ventanaAñadir || !btnConfirmar || !section || !inputNombre || !inputCategoria || !selectPrioridad || !botonTema) {
+    console.error("Faltan elementos en el DOM. Revisa los id en index.html.")
+    return
+}
+
+/**
+ * @typedef {"Baja"|"Media"|"Alta"} Prioridad
+ */
+
+/**
+ * @typedef {Object} Tarea
+ * @property {string} nombre
+ * @property {string} categoria
+ * @property {Prioridad} prioridad
+ */
+
+/** @type {Tarea[]} */
+let tareas = [];
 
 
 
@@ -26,102 +47,198 @@ const iconoSol = `<svg id="iconoTema" xmlns="http://www.w3.org/2000/svg" fill="c
   <line x1="4" y1="20" x2="7" y2="17" stroke="currentColor" stroke-width="2"/>
   <line x1="17" y1="7" x2="20" y2="4" stroke="currentColor" stroke-width="2"/>
 </svg>`;
-if(localStorage.getItem("tema") === "oscuro"){
-    document.body.classList.add("dark");
-    botonTema.innerHTML = iconoSol;
-} else {
-    botonTema.innerHTML = iconoLuna;
+/**
+ * Aplica el tema inicial guardado en `localStorage`.
+ * - Si `tema === "oscuro"`, activa `.dark` y pone el icono de sol.
+ * - En caso contrario, deja el modo claro y pone el icono de luna.
+ * @returns {void}
+ */
+function aplicarTemaInicial() {
+    if (localStorage.getItem("tema") === "oscuro") {
+        document.body.classList.add("dark");
+        botonTema.innerHTML = iconoSol;
+    } else {
+        botonTema.innerHTML = iconoLuna;
+    }
 }
 
-// Listener del botón
-botonTema.addEventListener("click", () => {
+/**
+ * Alterna entre modo claro y oscuro y persiste la preferencia en `localStorage`.
+ * @returns {void}
+ */
+function toggleTema() {
     document.body.classList.toggle("dark");
 
-    // Cambiar el icono según el modo
-    if(document.body.classList.contains("dark")){
+    if (document.body.classList.contains("dark")) {
         botonTema.innerHTML = iconoSol;
         localStorage.setItem("tema", "oscuro");
     } else {
         botonTema.innerHTML = iconoLuna;
         localStorage.setItem("tema", "claro");
     }
-});
-
-
-
-
-const tareasGuardadas=localStorage.getItem("tareas"); //miramos si existen tareas guardadas en localStorage
-if(tareasGuardadas){
-    tareas = JSON.parse(tareasGuardadas)
-     tareas.forEach(t => {
-        crearTarea(t.nombre, t.categoria, t.prioridad)
-    })
-} 
-
-añadir.addEventListener("click", () =>{ //boton para ir a la ventana de añadir tarea
-ventanaAñadir.style.display="flex";
-contenedor.style.display="none";
-})
-
-
-function crearTarea(nombre, categoria, prioridad){ //función para solo crear la tarea en el DOM
-    
-const nuevaTarea = document.createElement("div");
-nuevaTarea.className="tarea bg-yellow-100 w-150 h-30 flex items-center justify-between p-2.5 border border-black hover:bg-blue-200 transition duration-500";
-
-const colorPrioridad={
-    "Alta": "text-red-600",
-    "Media":"text-orange-400",
-    "Baja": "text-green-600"
 }
 
-nuevaTarea.innerHTML=`
+aplicarTemaInicial()
+botonTema.addEventListener("click", toggleTema);
+
+
+
+
+/**
+ * Persiste el array `tareas` en `localStorage`.
+ * @returns {void}
+ */
+function guardarTareas() {
+    localStorage.setItem("tareas", JSON.stringify(tareas))
+}
+
+/**
+ * Carga tareas desde `localStorage`.
+ * @returns {unknown[]}
+ */
+function cargarTareas() {
+    const tareasGuardadas = localStorage.getItem("tareas") // miramos si existen tareas guardadas en localStorage
+    if (!tareasGuardadas) return []
+    try {
+        return JSON.parse(tareasGuardadas)
+    } catch {
+        return []
+    }
+}
+
+/**
+ * Normaliza una tarea antigua/externa a la forma actual.
+ * Mantiene compatibilidad con la clave antigua `"categoría"`.
+ * @param {any} t
+ * @returns {Tarea}
+ */
+function normalizarTareaGuardada(t) {
+    // Compatibilidad: antes se guardaba como "categoría"
+    const categoria = t?.categoria ?? t?.["categoría"] ?? ""
+    return { nombre: t?.nombre ?? "", categoria, prioridad: t?.prioridad ?? "Baja" }
+}
+
+/**
+ * Muestra la ventana/modal de alta de tarea y oculta el contenedor principal.
+ * @returns {void}
+ */
+function abrirVentanaAñadir() {
+    ventanaAñadir.style.display = "flex";
+    contenedor.style.display = "none";
+}
+
+/**
+ * Oculta la ventana/modal de alta de tarea y muestra el contenedor principal.
+ * @returns {void}
+ */
+function cerrarVentanaAñadir() {
+    ventanaAñadir.style.display = "none"
+    contenedor.style.display = "flex"
+}
+
+/**
+ * Limpia los campos de entrada de la ventana de alta.
+ * @returns {void}
+ */
+function limpiarFormulario() {
+    inputNombre.value = ""
+    inputCategoria.value = ""
+}
+
+/**
+ * Lee y valida mínimamente los datos del formulario (trim).
+ * @returns {{nombre: string, categoria: string, prioridad: Prioridad}}
+ */
+function getDatosFormulario() {
+    return {
+        nombre: inputNombre.value.trim(),
+        categoria: inputCategoria.value.trim(),
+        prioridad: selectPrioridad.value,
+    }
+}
+
+btnAnadir.addEventListener("click", abrirVentanaAñadir) // boton para ir a la ventana de añadir tarea
+
+
+/**
+ * Obtiene la clase CSS (Tailwind) para colorear por prioridad.
+ * @param {Prioridad} prioridad
+ * @returns {string}
+ */
+function getColorPrioridad(prioridad) {
+    const colorPrioridad = {
+        Alta: "text-red-600",
+        Media: "text-orange-400",
+        Baja: "text-green-600",
+    }
+    return colorPrioridad[prioridad] ?? ""
+}
+
+/**
+ * Renderiza una tarea en el DOM y enlaza el botón de borrado.
+ * @param {Tarea} tarea
+ * @returns {void}
+ */
+function renderTarea({ nombre, categoria, prioridad }) {
+    const nuevaTarea = document.createElement("div");
+    nuevaTarea.className =
+        "tarea bg-yellow-100 w-150 h-30 flex items-center justify-between p-2.5 border border-black hover:bg-blue-200 transition duration-500";
+
+    nuevaTarea.innerHTML = `
 <h2 class="text-3xl">${nombre}</h2>
 <ul>
     <li><strong>Categoría:</strong> ${categoria}</li>
-    <li class="${colorPrioridad[prioridad]}"><strong>Prioridad:</strong> ${prioridad}</li>
+    <li class="${getColorPrioridad(prioridad)}"><strong>Prioridad:</strong> ${prioridad}</li>
 </ul>
 <button class="buttonQuitar text-blue-500 cursor-pointer bg-gray-200 p-3 rounded border border-black hover:bg-indigo-600 hover:text-white transition duration-300 mr-3">Quitar</button>`
-section.appendChild(nuevaTarea)
+    section.appendChild(nuevaTarea)
 
+    const btnQuitar = nuevaTarea.querySelector(".buttonQuitar") // dentro le añadimos el boton para eliminarlo
+    btnQuitar.addEventListener("click", () => {
+        // boton para borrar cada tarea del DOM y del array
+        nuevaTarea.remove()
+        tareas = tareas.filter(t => t.nombre !== nombre)
+        guardarTareas()
+    })
+}
 
-const btnQuitar = nuevaTarea.querySelector(".buttonQuitar")//dentro le añadimos el boton para eliminarlo
-
-btnQuitar.addEventListener("click", () => { //boton para borrar cada tarea del DOM y del array
-    nuevaTarea.remove()
-   tareas = tareas.filter(t => t.nombre!=nombre)
-   localStorage.setItem("tareas", JSON.stringify(tareas))
-})
-
-
-document.getElementById("nombre").value=""
-document.getElementById("categoria").value=""
-
-
-ventanaAñadir.style.display="none"
-contenedor.style.display="flex"
+/**
+ * Crea una tarea, la añade a memoria, la persiste y la renderiza.
+ * @param {string} nombre
+ * @param {string} categoria
+ * @param {Prioridad} prioridad
+ * @returns {void}
+ */
+function crearTarea(nombre, categoria, prioridad) {
+    const tarea = { nombre, categoria, prioridad }
+    tareas.push(tarea)
+    guardarTareas()
+    renderTarea(tarea)
 }
 
 
 
 btnConfirmar.addEventListener("click", () => { //para enviar el formulario
-    const nombre = document.getElementById("nombre").value
-    const categoria = document.getElementById("categoria").value
-    const prioridad = document.getElementById("prioridad").value
+    const { nombre, categoria, prioridad } = getDatosFormulario()
 
-    if (nombre.trim() != "" && categoria.trim() != "") { //me aseguro de que introduzcan esos datos
-
-        const tarea = { //aquí añadimos esta nueva tarea al array para guardarlo posteriormente en localstorage
-            nombre: nombre,
-            categoria: categoria,
-            prioridad: prioridad
-        };
-
-        tareas.push(tarea);
-        localStorage.setItem("tareas", JSON.stringify(tareas))
+    if (nombre !== "" && categoria !== "") { //me aseguro de que introduzcan esos datos
         crearTarea(nombre, categoria, prioridad)
+        limpiarFormulario()
+        cerrarVentanaAñadir()
 
     } else {
         alert("Debe rellenar cada campo")
     }
+})
+
+/**
+ * Inicializa la app: carga tareas desde storage y las pinta.
+ * @returns {void}
+ */
+function init() {
+    tareas = cargarTareas().map(normalizarTareaGuardada)
+    tareas.forEach(renderTarea)
+}
+
+init()
 })
