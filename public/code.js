@@ -65,7 +65,7 @@ function aplicarTemaInicial() {
     }
 }
 
-btnVolver.addEventListener("click" , ()=>{
+btnVolver.addEventListener("click" , ()=>{ //botón el cual te permite volver a la pagina principal desde la ventana de ventanaAñadir
     ventanaAñadir.style.display="none";
     contenedor.style.display="flex";
     limpiarFormulario();

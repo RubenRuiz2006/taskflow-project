@@ -555,3 +555,9 @@ body.dark .btnVolver{
 body.dark .subtitulo{
   color: white;
 }
+body .icono:hover{
+color: #111827;
+}
+body.dark .icono:hover{
+color: rgb(255, 217, 0);
+}
