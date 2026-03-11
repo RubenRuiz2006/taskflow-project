@@ -551,3 +551,7 @@ body.dark .btnVolver:hover{
 body.dark .btnVolver{
   background-color: #4b5563;
   border-color: black;}
+
+body.dark .subtitulo{
+  color: white;
+}
