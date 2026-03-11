@@ -18,7 +18,7 @@ ha usado un lenguaje más sencillo y extenso para la explicación mientras que C
 
 He podido observar que en el ámbito de profundizar ambos están en un nivel muy similar, impidiéndome decir cual profundiza más.
 
-En términos de ejemplos podemos ver que ChatGPT pone ejemplos un poco más elaborados y extensos que Claude.
+En términos de ejemplos podemos ver que ChatGPT pone ejemplos un poco más elaborados y extensos que Claude aunque esta última también los ofrece pero en menor medida.
 
 # 3. EXPLICACIÓN DE ERRORES
 

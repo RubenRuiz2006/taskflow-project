@@ -9,6 +9,8 @@
 Con esta inteligencia artificial he podido mejorar mi código en varias partes:
 -Me ha ayudado a cambiar el nombre de una variable en todo el proyecto la cual traía confuiones
 -Ha detectado un posible error al introducir datos ya que podían poner espacios en blanco en los inputs asi que lo ha mejorado con .trim()
+-Gracias a ella he podido refactorizar mi código de manera eficiente
+-Me ha aportado diferentes paletas de colores para que combine mejor y se vea más profesional
 
 # Instalación de un servidor MCP
 
