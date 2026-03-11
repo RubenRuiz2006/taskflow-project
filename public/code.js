@@ -11,6 +11,8 @@ const inputCategoria = document.getElementById("categoria")
 const selectPrioridad = document.getElementById("prioridad")
 
 const botonTema = document.getElementById("botonTema");
+const btnVolver = document.getElementById("btnVolver")
+
 
 if (!contenedor || !btnAnadir || !btnOrdenarPrioridad || !ventanaAñadir || !btnConfirmar || !section || !inputNombre || !inputCategoria || !selectPrioridad || !botonTema) {
     console.error("Faltan elementos en el DOM. Revisa los id en index.html.")
@@ -62,6 +64,14 @@ function aplicarTemaInicial() {
         botonTema.innerHTML = iconoLuna;
     }
 }
+
+btnVolver.addEventListener("click" , ()=>{
+    ventanaAñadir.style.display="none";
+    contenedor.style.display="flex";
+    limpiarFormulario();
+
+})
+
 
 /**
  * Alterna entre modo claro y oscuro y persiste la preferencia en `localStorage`.

@@ -543,3 +543,11 @@ body.dark .tarea:hover{
   background-color:  #222f4b;
   color:#fff;
 }
+
+body.dark .btnVolver:hover{
+  background-color:  #111827;
+  color:#fff;
+}
+body.dark .btnVolver{
+  background-color: #4b5563;
+  border-color: black;}
