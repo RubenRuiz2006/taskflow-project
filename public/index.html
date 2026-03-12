@@ -24,16 +24,24 @@
                 </button>
     </header>
     <main>
-        <div class="contenedor" id="contenedor" style="display: flex;">
-            <section id="section" >
-
+        <div class="contenedor flex items-start gap-4 p-4" id="contenedor">
+            <div class="flex flex-col gap-2 min-w-100 max-w-[800px] min-w-[500px]">
+            <div class="flex gap-2">
                 
-            </section>
+             <button id="botonAñadir" class="botonAñadir w-1/2 text-cyan-700 cursor-pointer bg-gray-200 p-3 border border-black rounded hover:bg-cyan-700 hover:text-white transition duration-300">Añadir tarea</button>
+                <button id="botonOrdenarPrioridad" class=" botonOrdenarPrioridad w-1/2 text-cyan-700 cursor-pointer bg-gray-200 p-2.5 border rounded border-black hover:bg-cyan-700 hover:text-white transition duration-300" style="font-size: 0.95rem; line-height: 1.1;">Ordenar por prioridad</button>
+             </div>
+             <section id="section" class="flex flex-col gap-2" ></section>
+            <div id="sinTareas" class="hidden text-gray-400 border border-dashed border-gray-300 rounded p-6 text-center w-full max-w-[800px] ">
+        No hay tareas pendientes
+    </div>    
+            </div>       
+
+          
+           
             
-                <button id="botonAñadir" class="botonAñadir text-cyan-700 cursor-pointer bg-gray-200 p-3 border border-black rounded hover:bg-cyan-700 hover:text-white transition duration-300">Añadir tarea</button>
-                <button id="botonOrdenarPrioridad" class=" botonOrdenarPrioridad text-cyan-700 cursor-pointer bg-gray-200 p-2.5 border rounded border-black hover:bg-cyan-700 hover:text-white transition duration-300" style="font-size: 0.95rem; line-height: 1.1;">
-                    Ordenar por <br> prioridad
-                </button>
+               
+                
             
 
             <aside>
@@ -53,7 +61,7 @@
             <label for="nombre">
                 <h2 class=" subtitulo text-2xl p-3 text-cyan-700"><strong>Nombre de la tarea</strong></h2>
             </label>
-            <input type="text" id="nombre" placeholder="Nombre de la tarea" class=" border h-10 w-70 bg-white ml-3" maxlength="15">
+            <input type="text" id="nombre" placeholder="Nombre de la tarea" class=" border h-10 w-70 bg-white ml-3" maxlength="20">
             <div id="errorN" class="hidden text-red-600 text-sm ml-3">El nombre es obligatorio</div>
             <label for="categoria">
                 <h2 class=" subtitulo text-2xl p-3 text-cyan-700"><strong>Categoría de la tarea</strong></h2>

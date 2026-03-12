@@ -4,9 +4,9 @@
 
     Aquí al darle un rol y una orden clara, ejecutará la tarea directamente.
 
-# -2 Desarrolla un código en lenguaje JavaScript el cual pueda hacer la información perdurable.
+# -2 Revisa mi código para ver posibles mejores distribuciones del espacio en mi web.
 
-    Aquí especificamos pautas concretas para la realización de la tarea.
+    Aquí usamos la IA para que nos de posibles recomendaciones al mejorar nuestra web.
 
 # -3 Explica paso a paso este código y dime qué puedo factorizar explicándomelo.
 

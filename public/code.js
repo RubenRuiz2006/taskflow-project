@@ -15,6 +15,17 @@ const btnVolver = document.getElementById("btnVolver");
 
 
 
+function actualizarSinTareas(){
+    const sinTareas=document.getElementById("sinTareas")
+    if(tareas.length==0){
+        sinTareas.classList.remove("hidden")
+    }else{
+        sinTareas.classList.add("hidden")
+    }
+}
+
+
+
 if (!contenedor || !btnAnadir || !btnOrdenarPrioridad || !ventanaAñadir || !btnConfirmar || !section || !inputNombre || !inputCategoria || !selectPrioridad || !botonTema) {
     console.error("Faltan elementos en el DOM. Revisa los id en index.html.")
     return
@@ -208,14 +219,14 @@ function ordenarPorPrioridad() {
  * @param {Tarea} tarea
  * @returns {void}
  */
-function renderTarea({ nombre, categoria, prioridad }) {
+function renderTarea({id, nombre, categoria, prioridad }) {
     const nuevaTarea = document.createElement("div");
     nuevaTarea.className =
-        "tarea rounded bg-white w-150 h-30 flex items-center justify-between p-2.5 border border-black hover:bg-cyan-100 transition duration-500";
+        "tarea rounded bg-white w-full h-24 flex items-center justify-between px-6 p-2.5 border border-black hover:bg-cyan-100 transition duration-500";
 
     nuevaTarea.innerHTML = `
-<h2 class="text-3xl text-cyan-700 textoB">${nombre}</h2>
-<ul>
+<h2 class="text-3xl text-cyan-700 textoB w-80">${nombre}</h2>
+<ul class="flex-1 px-12">
     <li class="text-cyan-700 textoB"><strong>Categoría:</strong> ${categoria}</li>
     <li class="${getColorPrioridad(prioridad)}"><strong>Prioridad:</strong> ${prioridad}</li>
 </ul>
@@ -226,8 +237,9 @@ function renderTarea({ nombre, categoria, prioridad }) {
     btnQuitar.addEventListener("click", () => {
         // boton para borrar cada tarea del DOM y del array
         nuevaTarea.remove()
-        tareas = tareas.filter(t => t.nombre !== nombre)
+        tareas = tareas.filter(t => t.id !== id)
         guardarTareas()
+        actualizarSinTareas()
     })
 }
 
@@ -239,10 +251,11 @@ function renderTarea({ nombre, categoria, prioridad }) {
  * @returns {void}
  */
 function crearTarea(nombre, categoria, prioridad) {
-    const tarea = { nombre, categoria, prioridad }
+    const tarea = {id: Date.now(), nombre, categoria, prioridad }
     tareas.push(tarea)
     guardarTareas()
     renderTarea(tarea)
+    actualizarSinTareas()
 }
 
 
@@ -263,11 +276,15 @@ if(nombre === ""){
     errorN.classList.remove("hidden")
     inputNombre.classList.add("border-red-600")
     hayError=true;
+}else{
+    inputNombre.classList.remove("border-red-600")
 }
 if(categoria === ""){
     errorC.classList.remove("hidden")
     inputCategoria.classList.add("border-red-600")
     hayError=true;
+} else{
+  inputCategoria.classList.remove("border-red-600")  
 }
 if(!hayError){
     crearTarea(nombre, categoria, prioridad)
@@ -283,6 +300,7 @@ if(!hayError){
 function init() {
     tareas = cargarTareas()
     tareas.forEach(renderTarea)
+    actualizarSinTareas()
 }
 
 init()

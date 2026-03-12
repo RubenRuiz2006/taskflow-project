@@ -47,4 +47,4 @@ Las dos han sido capaces de crearla pero claramente la de Claude es de mucha má
 Finalmente les he pedido que me hicieran una aplicación todavía más profesional sobre los personajes de Dragon Ball, confirmando lo que ya habíamos probado.
 Claude ha creado una aplicación entera con más de 800 lineas de código, mientras ChatGPT no ha podido ni hacer que funcione. 
 
-
+En conclusión en el ámbito del código siento que Claude se equivoca mucho menos y aunque ambas son bastante útiles, en mi experiencia Claude es más eficiente a la hora de generar código.

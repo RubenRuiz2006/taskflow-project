@@ -40,4 +40,8 @@ Una vez ya tengas un producto inicial puedes empezar a hacer mejoras estructural
 
 El potencial de esta tecnología está en la agilización de procesos, siendo muy útil en el desarrollo de documentación necesaria para el código.
 
+Estos días he estado usando Bastante Claude AI y me ha parecido la herramienta más útil, me ha permitido darle un enfoque totalmente renovador a mi web, pero siempre recalco decir que te lo explique paso a paso, ya que si no, no sirve de nada.
+
+Realmente lo que no tiene sentido es que la IA desarrolle tu proyecto desde 0 sin tú tener ningún tipo de control sobre ello, a eso me refiero cuando hablo sobre tener tu estructura ya clara y usar la IA solo para mejorar poco a poco esa estructura.
+
 Desde mi punto de vista el hecho de aprender cuándo usar la IA es casi tan importante como el saber usarla, ya que como he dicho anteriormente la inteligencia artificial es una herramienta, no un sustituto.

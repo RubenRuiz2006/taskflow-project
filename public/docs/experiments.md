@@ -25,4 +25,6 @@ gracias a la cual pude implementarla de manera más eficiente.
 -En mi código yo tampoco había pensado que pudieran meter en los inputs espacios en blanco lo cual me ha aconsejado como cambiarlo,
 dandome una solción muy sencilla
 
--Y su forma de añadir un botón de ordenar por prioridad era mucho más limpia que la mía, pero a la hora de implementarlo ha sido más útil poner ideas en común y llegar a una conclusioó de mejor opción. 
+-Y su forma de añadir un botón de ordenar por prioridad era mucho más limpia que la mía, pero a la hora de implementarlo ha sido más útil poner ideas en común y llegar a una conclusión de mejor opción.
+
+-Tras varios días usando Claude sobretodo he podido darle un enfoque totalmente diferente a mi web, con una distribución mejor y más profesinal.
