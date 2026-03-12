@@ -13,7 +13,7 @@ const selectPrioridad = document.getElementById("prioridad")
 const botonTema = document.getElementById("botonTema");
 const btnVolver = document.getElementById("btnVolver");
 
-
+const overlay=document.getElementById("overlay")
 
 function actualizarSinTareas(){
     const sinTareas=document.getElementById("sinTareas")
@@ -79,7 +79,7 @@ function aplicarTemaInicial() {
 
 btnVolver.addEventListener("click" , ()=>{ //botón el cual te permite volver a la pagina principal desde la ventana de ventanaAñadir
     ventanaAñadir.style.display="none";
-    contenedor.style.display="flex";
+    overlay.classList.add("hidden");
     limpiarFormulario();
 
 })
@@ -143,7 +143,8 @@ function cargarTareas() {
  */
 function abrirVentanaAñadir() {
     ventanaAñadir.style.display = "flex";
-    contenedor.style.display = "none";
+    overlay.classList.remove("hidden")
+
 }
 
 /**
@@ -153,6 +154,7 @@ function abrirVentanaAñadir() {
 function cerrarVentanaAñadir() {
     ventanaAñadir.style.display = "none"
     contenedor.style.display = "flex"
+    overlay.classList.add("hidden")
 }
 
 /**
@@ -291,6 +293,7 @@ if(!hayError){
     limpiarFormulario()
     cerrarVentanaAñadir()
 }
+
 })
 
 /**
