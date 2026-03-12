@@ -32,8 +32,7 @@
             
                 <button id="botonAñadir" class="botonAñadir text-cyan-700 cursor-pointer bg-gray-200 p-3 border border-black rounded hover:bg-cyan-700 hover:text-white transition duration-300">Añadir tarea</button>
                 <button id="botonOrdenarPrioridad" class=" botonOrdenarPrioridad text-cyan-700 cursor-pointer bg-gray-200 p-2.5 border rounded border-black hover:bg-cyan-700 hover:text-white transition duration-300" style="font-size: 0.95rem; line-height: 1.1;">
-                    <span style="display:block;">Ordenar por</span>
-                    <span style="display:block;">prioridad</span>
+                    Ordenar por <br> prioridad
                 </button>
             
 
@@ -48,18 +47,20 @@
 
         </div>
         
-        <div class="ventanaAñadir bg-white shadow-xl rounded-lg fixed border border-black w-[350px] h-[350px] p-2.5 flex flex-col items-start justify-start"
+        <div class="ventanaAñadir bg-white shadow-xl rounded-lg fixed border border-black w-[350px] h-[400px] p-2.5 flex flex-col items-start justify-start"
      style="display:none; top:50%; left:50%; transform: translate(-50%, -50%);"
      id="ventanaAñadir">
             <label for="nombre">
                 <h2 class=" subtitulo text-2xl p-3 text-cyan-700"><strong>Nombre de la tarea</strong></h2>
             </label>
             <input type="text" id="nombre" placeholder="Nombre de la tarea" class=" border h-10 w-70 bg-white ml-3" maxlength="15">
-
+            <div id="errorN" class="hidden text-red-600 text-sm ml-3">El nombre es obligatorio</div>
             <label for="categoria">
                 <h2 class=" subtitulo text-2xl p-3 text-cyan-700"><strong>Categoría de la tarea</strong></h2>
             </label>
+            
             <input type="text" id="categoria" placeholder="Categoría de la tarea" class=" border h-10 w-70 bg-white ml-3" maxlength="20">
+                <div id="errorC" class="hidden text-red-600 text-sm ml-3">Rellena la categoría</div>
 
             <label for="prioridad">
                 <h2 class=" subtitulo text-2xl p-3 text-cyan-700"><strong>Prioridad de la tarea</strong></h2>

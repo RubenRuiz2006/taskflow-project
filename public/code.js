@@ -11,7 +11,8 @@ const inputCategoria = document.getElementById("categoria")
 const selectPrioridad = document.getElementById("prioridad")
 
 const botonTema = document.getElementById("botonTema");
-const btnVolver = document.getElementById("btnVolver")
+const btnVolver = document.getElementById("btnVolver");
+
 
 
 if (!contenedor || !btnAnadir || !btnOrdenarPrioridad || !ventanaAñadir || !btnConfirmar || !section || !inputNombre || !inputCategoria || !selectPrioridad || !botonTema) {
@@ -150,6 +151,10 @@ function cerrarVentanaAñadir() {
 function limpiarFormulario() {
     inputNombre.value = ""
     inputCategoria.value = ""
+    errorN.classList.add("hidden")
+    errorC.classList.add("hidden")
+    inputNombre.classList.remove("border-red-600")
+    inputCategoria.classList.remove("border-red-600")
 }
 
 /**
@@ -245,14 +250,30 @@ function crearTarea(nombre, categoria, prioridad) {
 btnConfirmar.addEventListener("click", () => { //para enviar el formulario
     const { nombre, categoria, prioridad } = getDatosFormulario()
 
-    if (nombre !== "" && categoria !== "") { //me aseguro de que introduzcan esos datos
-        crearTarea(nombre, categoria, prioridad)
-        limpiarFormulario()
-        cerrarVentanaAñadir()
+   const errorN= document.getElementById("errorN");
+const errorC= document.getElementById("errorC");
 
-    } else {
-        alert("Debe rellenar cada campo")
-    }
+errorN.classList.add("hidden");
+errorC.classList.add("hidden");
+
+
+let hayError = false;
+
+if(nombre === ""){
+    errorN.classList.remove("hidden")
+    inputNombre.classList.add("border-red-600")
+    hayError=true;
+}
+if(categoria === ""){
+    errorC.classList.remove("hidden")
+    inputCategoria.classList.add("border-red-600")
+    hayError=true;
+}
+if(!hayError){
+    crearTarea(nombre, categoria, prioridad)
+    limpiarFormulario()
+    cerrarVentanaAñadir()
+}
 })
 
 /**
