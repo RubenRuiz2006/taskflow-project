@@ -40,6 +40,8 @@ if (!contenedor || !btnAnadir || !btnOrdenarPrioridad || !ventanaAñadir || !btn
  * @property {string} nombre
  * @property {string} categoria
  * @property {Prioridad} prioridad
+ * @property {number} estado
+ * 
  */
 
 /** @type {Tarea[]} */
@@ -164,6 +166,7 @@ function cerrarVentanaAñadir() {
 function limpiarFormulario() {
     inputNombre.value = ""
     inputCategoria.value = ""
+    selectPrioridad.value="Baja"
     errorN.classList.add("hidden")
     errorC.classList.add("hidden")
     inputNombre.classList.remove("border-red-600")
@@ -216,24 +219,58 @@ function ordenarPorPrioridad() {
     tareas.forEach(renderTarea)
 }
 
+
+
+
 /**
  * Renderiza una tarea en el DOM y enlaza el botón de borrado.
  * @param {Tarea} tarea
  * @returns {void}
  */
-function renderTarea({id, nombre, categoria, prioridad }) {
+function renderTarea(tarea) {
+    const {id, nombre, categoria, prioridad}=tarea
     const nuevaTarea = document.createElement("div");
     nuevaTarea.className =
-        "tarea rounded bg-white w-full h-24 flex items-center justify-between px-6 p-2.5 border border-black hover:bg-cyan-100 transition duration-500";
+        "tarea rounded bg-white w-full flex items-center justify-between px-6 py-3 border border-black hover:bg-cyan-100 transition duration-500";
 
     nuevaTarea.innerHTML = `
 <h2 class="text-3xl text-cyan-700 textoB w-80">${nombre}</h2>
 <ul class="flex-1 px-12">
     <li class="text-cyan-700 textoB"><strong>Categoría:</strong> ${categoria}</li>
     <li class="${getColorPrioridad(prioridad)}"><strong>Prioridad:</strong> ${prioridad}</li>
-</ul>
-<button class="buttonQuitar text-cyan-700 cursor-pointer bg-gray-200 p-3 rounded border border-black hover:bg-cyan-700 hover:text-white transition duration-300 mr-3">Quitar</button>`
+</ul><div class="flex flex-col items-center gap-1.5 mr-2">
+   <button class="btnEstado btnEstadoE text-sm px-4 py-2 rounded border transition duration-300 bg-gray-200 text-cyan-700 border-black hover:text-white hover:bg-cyan-700 w-32" data-estado="0">Estado</button>
+
+    <button class="buttonQuitar text-sm cursor-pointer bg-gray-200 text-cyan-700 border border-black px-4 py-2 rounded hover:bg-cyan-700 hover:text-white transition duration-300 w-32">Quitar</button>
+</div>`
     section.appendChild(nuevaTarea)
+
+const estados = [
+    { label: 'Estado',     clase: 'bg-gray-200 text-cyan-700 border-black hover:bg-cyan-700' },
+    { label: 'Pendiente',  clase: 'btnEstadoP bg-orange-200 text-orange-400 border-black hover:bg-orange-300 text-orange-700' },
+    { label: 'En curso',   clase: 'btnEstadoEC bg-blue-100 text-blue-600 border-black hover:bg-blue-200' },
+    { label: 'Completada', clase: 'btnEstadoC bg-green-200 text-green-600 border-black hover:bg-green-300' },
+]
+
+const btnEstado = nuevaTarea.querySelector(".btnEstado")
+
+if (tarea.estado) {
+    btnEstado.dataset.estado = tarea.estado
+    btnEstado.className = `btnEstado text-sm px-4 py-2 rounded border transition duration-300 w-32 ${estados[tarea.estado].clase}`
+    btnEstado.textContent = estados[tarea.estado].label
+}
+
+btnEstado.addEventListener("click", () => {
+    const actual = parseInt(btnEstado.dataset.estado) 
+const siguiente =actual === 0 ? 1 : (actual % 3) +1
+    btnEstado.dataset.estado = siguiente
+    btnEstado.className = `btnEstado text-sm px-4 py-2 rounded border transition duration-300 w-32 ${estados[siguiente].clase}`
+    btnEstado.textContent = estados[siguiente].label
+    btnEstado.classList.remove("btnEstadoE")
+    const t = tareas.find(t => t.id === id)
+    if (t) { t.estado = siguiente; guardarTareas() }
+})
+
 
     const btnQuitar = nuevaTarea.querySelector(".buttonQuitar") // dentro le añadimos el boton para eliminarlo
     btnQuitar.addEventListener("click", () => {

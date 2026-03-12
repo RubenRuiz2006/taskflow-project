@@ -32,9 +32,9 @@ Añadimos varias opciones posibles para que nos explique cuál es mejor y por qu
 
 Así podemos prevenir futuros errores que serán difíciles de detectar
 
-# -9 Explica paso a paso cuál es la mejor manera de implementar esta función, con este nombre.
+# -9 Implemente esta funcionalidad en tu código y muestrame un preview.
 
-Explicamos la función que queremos implementar para que entienda bien la idea que tenemos para que la ejecute correctamente.
+Nos permite ver como quedaría nuestra web con algún cambio sin la necesidad de hacerlo nosotros en nuestro código original, ganando tiempo así y evitando que nuestro código se rompa.
 
 # -10 Estoy realizando un proyecto sobre "...." en el cual quiero implementar una función llamada "...." con estos valores, ¿cuál es la manera más eficiente?.
 

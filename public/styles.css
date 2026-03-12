@@ -525,6 +525,15 @@ body.dark .buttonQuitar:hover{
 body.dark .buttonQuitar{
  border-color: #111827;
 }
+
+body.dark .btnEstado{
+ border-color: #111827;
+}
+body.dark .btnEstadoE:hover{
+ background-color: #111827; 
+ color: #fff;
+}
+
 body.dark  option{
   background-color: #111827;
 }
@@ -560,4 +569,30 @@ color: #111827;
 }
 body.dark .icono:hover{
 color: rgb(255, 217, 0);
+}
+
+body.dark .btnEstadoP:hover{
+color: rgb(0, 0, 0);
+background-color: rgb(212, 158, 57) ;
+}
+body.dark .btnEstadoC:hover{
+color: rgb(0, 0, 0);
+background-color:rgb(22, 163, 74);
+}
+body.dark .btnEstadoC{
+color: rgb(0, 0, 0);
+background-color: rgb(70, 209, 121);
+}
+body.dark .btnEstadoP{
+background-color: rgb(235, 172, 57);
+color: #000;
+
+}
+body.dark .btnEstadoEC:hover{
+color: rgb(0, 0, 0);
+background-color: rgb(62, 174, 189);
+}
+body.dark .btnEstadoEC{
+color: rgb(0, 0, 0);
+background-color: rgb(70, 193, 209);
 }

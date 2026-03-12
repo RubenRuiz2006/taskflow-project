@@ -7,6 +7,7 @@ Una web de gestión de tareas, con diferenciación entre categorías y prioridad
 -LocalStorage
 -CSS
 -JavaScript
+-TailWind
 
 # Funciones
 -Añadir tareas con nombre, categoría y prioridad.
@@ -15,6 +16,9 @@ Una web de gestión de tareas, con diferenciación entre categorías y prioridad
 -Al abrir la página se cargaran las tareas de LocalStorage.
 -Diseño responsive para móviles.
 -Modo oscuro
+-Opción en las tareas de poner el estado (pendiente, en curso, completada)
+-Los estados perduran aunque se cierre o reinicie la página
+-Boton para ordenar las tareas por prioridad
 
 # Estructura de archivos
 -index.html (interfaz)
@@ -27,101 +31,93 @@ email: ruben.ruiz@alu.ceacfp.es
 
 # Documentación elaborada por IA
 
-# Lista de Tareas Interactiva
+# Lista de Tareas Interactiva — Prácticas
 
 ## 1. Resumen
 
-Este proyecto es una **aplicación web de lista de tareas** con las siguientes características principales:
+Aplicación web de gestión de tareas desarrollada con HTML, CSS y JavaScript vanilla. Permite organizar tareas por nombre, categoría, prioridad y estado, con persistencia automática de datos y soporte para modo oscuro.
 
-- Añadir tareas con **nombre, categoría y prioridad** (`Baja`, `Media`, `Alta`).  
-- Ordenar tareas por **prioridad**.  
-- **Persistencia de datos** usando `localStorage`.  
-- **Modo oscuro/claro** configurable, con iconos dinámicos (sol/luna).  
-- Interfaz dinámica usando **HTML, CSS y JavaScript**.  
-- Estilos adaptados con **TailwindCSS**.
+**Tecnologías:** HTML5 · CSS3 · JavaScript ES6+ · TailwindCSS v4 · LocalStorage
 
 ---
 
 ## 2. Estructura de Archivos
+```
 /proyecto
 │
-├─ .cursor/ # Configuración de IA / MCP para autocompletado (p. ej. mcp.json)
-├─ node_modules/ # Dependencias de Node.js (no subir al repositorio, se reconstruye con package.json)
-├─ .gitignore # Archivos/carpetas a ignorar en Git
-├─ package.json # Configuración del proyecto Node
-├─ package-lock.json # Registro exacto de versiones de dependencias
-├─ postcss.config.js # Configuración de PostCSS / TailwindCSS
-├─ index.html # Interfaz principal
-├─ styles.css # Estilos generales y modo oscuro
-└─ code.js # Lógica de la aplicación
-
-## 3. Funcionalidades Principales
-
-1. **Añadir Tareas**:  
-   - Los usuarios pueden introducir `nombre`, `categoría` y `prioridad` de la tarea.  
-   - Validación mínima para asegurar que no estén vacíos (`trim` aplicado a los inputs).  
-
-2. **Eliminar Tareas**:  
-   - Cada tarea tiene un botón de **Quitar**, que elimina la tarea del DOM y de `localStorage`.  
-
-3. **Ordenar por Prioridad**:  
-   - Prioridades: `Alta > Media > Baja`.  
-   - Se actualiza el orden en el DOM y en `localStorage`.  
-
-4. **Modo Claro / Oscuro**:  
-   - Persistencia en `localStorage` de la preferencia del usuario.  
-   - Icono dinámico que cambia entre sol y luna.  
-
-5. **Persistencia con LocalStorage**:  
-   - Todas las tareas se guardan y cargan automáticamente al abrir la página.  
-
-6. **Compatibilidad con Cursor AI**:  
-   - Se pueden usar prompts para generar documentación, revisar código, refactorizar variables o actualizar estilos.  
+├─ index.html          # Interfaz principal
+├─ styles.css          # Estilos generales y modo oscuro
+├─ code.js             # Lógica de la aplicación
+├─ .cursor/            # Configuración de Cursor AI / MCP
+├─ node_modules/       # Dependencias (no subir al repositorio)
+├─ .gitignore
+├─ package.json
+├─ package-lock.json
+└─ postcss.config.js   # Configuración de TailwindCSS
+```
 
 ---
 
-## 4. Uso de la Aplicación
+## 3. Funcionalidades
 
-1. Abrir `index.html` en un navegador moderno.  
-2. Hacer clic en **Añadir tarea** para abrir el formulario.  
-3. Introducir los datos de la tarea y confirmar.  
-4. Ordenar tareas por prioridad usando el botón correspondiente.  
-5. Cambiar entre **modo claro y oscuro** con el botón de tema.  
-6. Las tareas y el tema se guardan automáticamente en `localStorage`.  
+### Gestión de tareas
+- **Añadir** tareas con nombre, categoría y prioridad (`Baja`, `Media`, `Alta`).
+- **Eliminar** tareas individualmente con el botón *Quitar*.
+- **Ordenar** por prioridad: `Alta → Media → Baja`.
+- **Estado** de cada tarea con ciclo: `Pendiente → En curso → Completada`.
+
+### Persistencia
+- Todas las tareas y su estado se guardan en `localStorage`.
+- El tema (claro/oscuro) también persiste entre sesiones.
+
+### Diseño responsivo
+- Layout basado en Flexbox con `max-width`, `min-width` y `w-full` para adaptarse a distintos tamaños de pantalla.
+- Uso de `shrink-0` y `min-w-0` para evitar desbordamientos en pantallas pequeñas.
+- Los elementos de cada tarea (nombre, detalles, botones) se reorganizan correctamente sin romper el diseño.
+
+### Modo oscuro / claro
+- Activado con un botón con icono dinámico (sol/luna).
+- Implementado con la clase `body.dark` en CSS.
+- Persistencia mediante `localStorage`.
+
+---
+
+## 4. Cómo usar la aplicación
+
+1. Abrir `index.html` en un navegador moderno.
+2. Pulsar **Añadir tarea** para abrir el formulario.
+3. Rellenar nombre, categoría y prioridad, luego confirmar.
+4. Usar el botón **Estado** en cada tarea para actualizar su progreso.
+5. Ordenar tareas por prioridad con el botón correspondiente.
+6. Cambiar entre modo claro y oscuro con el icono de la cabecera.
+7. Todo se guarda automáticamente — los datos persisten al cerrar el navegador.
 
 ---
 
 ## 5. Uso de Cursor AI
 
-Se recomienda usar **Cursor AI** para mejorar la productividad en el proyecto:
+Se recomienda Cursor AI para mejorar la productividad en el proyecto:
 
-- **Autocompletado y documentación**:  
-  - Explora el DOM, funciones y flujos de la app.  
-  - Documenta automáticamente funciones y procesos.  
-
-- **Few-shot prompting**:  
-  - Dar ejemplos al modelo antes de pedirle tareas complejas para obtener mejores resultados.  
-
-- **Prompts útiles**:  
-  - Explica el código paso a paso.  
-  - Sugiere mejoras de variables o funciones.  
-  - Cambia estilos o nombres de variables globalmente.  
-  - Compara funciones para determinar cuál es más eficiente.  
+- **Documentación automática** de funciones y flujos.
+- **Few-shot prompting**: dar ejemplos al modelo antes de pedir tareas complejas.
+- **Refactorización**: renombrar variables o funciones globalmente.
+- **Comparación de funciones**: determinar cuál es más eficiente.
+- **MCP (Model Context Protocol)**: permite que la IA acceda al contexto real del proyecto.
 
 ---
 
-## 6. Buenas Prácticas y Notas
+## 6. Buenas prácticas aplicadas
 
-- Aplicar `trim()` en inputs para evitar cadenas vacías o espacios innecesarios.  
-- Mantener consistente la estructura de archivos.  
-- Validar campos importantes antes de guardar tareas.  
-- Usar **TailwindCSS** para mantener un diseño profesional y responsivo.  
-- Integrar MCP (Model Context Protocol) si se quiere usar IA para acceder a información del proyecto.  
+- `trim()` en todos los inputs para evitar espacios innecesarios.
+- Validación de campos antes de guardar cualquier tarea.
+- IDs únicos con `Date.now()` para identificar y eliminar tareas de forma segura.
+- Uso de `classList.add/remove` en lugar de `style.display` para compatibilidad con Tailwind.
+- Separación clara entre lógica (code.js), estilos (styles.css) y estructura (index.html).
 
 ---
 
 ## 7. Autor
 
-Rubén Ruiz Mayorga  
+**Rubén Ruiz Mayorga**  
 Email: ruben.ruiz@alu.ceacfp.es  
-Fecha: 10/3/2026
+Fecha: 12/03/2026
