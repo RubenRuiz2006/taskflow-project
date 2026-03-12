@@ -7,7 +7,7 @@ Una web de gestión de tareas, con diferenciación entre categorías y prioridad
 -LocalStorage
 -CSS
 -JavaScript
--TailWind
+-TailWind v4.2
 
 # Funciones
 -Añadir tareas con nombre, categoría y prioridad.
@@ -21,13 +21,18 @@ Una web de gestión de tareas, con diferenciación entre categorías y prioridad
 -Boton para ordenar las tareas por prioridad
 
 # Estructura de archivos
--index.html (interfaz)
--styles.css (estilos)
--code.js (lógica de la web)
+-`index.html` -- estructura de lainterfaz
+-`styles.css` -- estilos personalizados y reglas del modo oscuro
+-`code.js` -- toda la lógica de la web: crear, borrar y ordenar tareas
+
+# Cómo ejecutar
+1. Descarga el repositorio.
+2. Abre `index.html` directamente en el navegador, no necesita servidor ni instalación.
 
 # Autor
 Rubén Ruiz Mayorga
 email: ruben.ruiz@alu.ceacfp.es
+Fecha: 12/03/2026
 
 # Documentación elaborada por IA
 
