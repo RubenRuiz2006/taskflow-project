@@ -12,6 +12,8 @@ const selectPrioridad = document.getElementById("prioridad")
 
 const botonTema = document.getElementById("botonTema");
 const btnVolver = document.getElementById("btnVolver");
+   const errorN= document.getElementById("errorN");
+const errorC= document.getElementById("errorC");
 
 const overlay=document.getElementById("overlay")
 
@@ -290,7 +292,7 @@ const siguiente =actual === 0 ? 1 : (actual % 3) +1
  * @returns {void}
  */
 function crearTarea(nombre, categoria, prioridad) {
-    const tarea = {id: Date.now(), nombre, categoria, prioridad }
+    const tarea = {id: Date.now(), nombre, categoria, prioridad, estado: 0 }
     tareas.push(tarea)
     guardarTareas()
     renderTarea(tarea)
@@ -302,8 +304,7 @@ function crearTarea(nombre, categoria, prioridad) {
 btnConfirmar.addEventListener("click", () => { //para enviar el formulario
     const { nombre, categoria, prioridad } = getDatosFormulario()
 
-   const errorN= document.getElementById("errorN");
-const errorC= document.getElementById("errorC");
+
 
 errorN.classList.add("hidden");
 errorC.classList.add("hidden");
