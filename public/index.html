@@ -24,9 +24,11 @@
                 </button>
     </header>
     <div id="overlay" class="hidden fixed inset-0 bg-black/40 z-10"></div>
-    <main>
-        <div class="contenedor flex flex-col items-start gap-4 p-4 md:flex-row" id="contenedor">
-            <div class="flex flex-col gap-2 min-w-100 max-w-[800px]">
+    <main class="relative">
+        <div class="contenedor flex flex-col items-center gap-4 p-4 md:flex-row md:items-start md:justify-center" id="contenedor">
+            
+            <div class="hidden md:block md:min-w-[160px]"></div>
+            <div class="flex flex-col gap-2 w-full max-w-[600px]">
             <div class="flex gap-2">
                 
              <button id="botonAñadir" class="botonAñadir w-1/2 text-cyan-700 cursor-pointer bg-gray-200 p-3 border border-black rounded hover:bg-cyan-700 hover:text-white transition duration-300">Añadir tarea</button>
@@ -45,7 +47,7 @@
                 
             
 
-            <aside>
+            <aside class="self-start mt-2 md:mt-0 md:min-w-[160px]">
                 <h2 class="text-2xl p-3 underline"><strong>Normas:</strong></h2>
                 <ul class="list-disc ml-10">
                     <li class="mb-1">Añadir nombre completo</li>
