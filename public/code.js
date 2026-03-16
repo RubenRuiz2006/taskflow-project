@@ -16,6 +16,10 @@ const btnVolver = document.getElementById("btnVolver");
    const errorN= document.getElementById("errorN");
 const errorC= document.getElementById("errorC");
 
+const botonFiltrar = document.getElementById("botonFiltrar")
+const dropdownFiltro = document.getElementById("dropdownFiltro")
+let filtroActual = "Todas"
+
 const overlay=document.getElementById("overlay")
 
 function actualizarSinTareas(){
@@ -251,10 +255,10 @@ function renderTarea(tarea) {
 
     nuevaTarea.innerHTML = `
 <h2 class="text-3xl text-cyan-700 textoB w-80">${nombre}</h2>
-<ul class="flex-1 px-12">
-    <li class="text-cyan-700 textoB"><strong>Categoría:</strong> ${categoria}</li>
-    <li class="${getColorPrioridad(prioridad)}"><strong>Prioridad:</strong> ${prioridad}</li>
-${tarea.fecha ? `<li class="text-sm"><span class="fecha inline-block px-2 py-0.5 rounded-full text-xs font-semibold ${getFechaInfo(tarea.fecha).clase} bg-opacity-20 border border-current">${getFechaInfo(tarea.fecha).texto}</span></li>` : ''}
+<ul class="flex-1 px-4 flex flex-col gap-1">
+    <li class="text-cyan-700 textoB whitespace-nowrap"><strong>Categoría:</strong> ${categoria}</li>
+    <li class="${getColorPrioridad(prioridad)}  whitespace-nowrap"><strong>Prioridad:</strong> ${prioridad}</li>
+${tarea.fecha ? `<li class="text-sm"><span class="fecha inline-block px-2 py-0.5 rounded-full text-xs font-semibold ${getFechaInfo(tarea.fecha).clase} border">${getFechaInfo(tarea.fecha).texto}</span></li>` : ''}
     </ul><div class="flex flex-col items-center gap-1.5 mr-2">
    <button class="btnEstado btnEstadoE text-sm px-4 py-2 rounded border transition duration-300 bg-gray-200 text-cyan-700 border-black hover:text-white hover:bg-cyan-700 w-32" data-estado="0">Estado</button>
 
@@ -310,7 +314,7 @@ function crearTarea(nombre, categoria, prioridad, fecha) {
     const tarea = {id: Date.now(), nombre, categoria, prioridad, estado: 0, fecha }
     tareas.push(tarea)
     guardarTareas()
-    renderTarea(tarea)
+    if (filtroActual === "Todas" || tarea.prioridad === filtroActual) renderTarea(tarea)
     actualizarSinTareas()
 }
 
@@ -348,6 +352,34 @@ if(!hayError){
 }
 
 })
+
+
+botonFiltrar.addEventListener("click", (e) => {
+    e.stopPropagation()
+    dropdownFiltro.classList.toggle("hidden")
+})
+
+document.addEventListener("click", () => {
+    dropdownFiltro.classList.add("hidden")
+})
+
+document.querySelectorAll(".dropdown-item").forEach(item => {
+    item.addEventListener("click", () => {
+        filtroActual = item.dataset.filtro
+        botonFiltrar.textContent = filtroActual === "Todas" ? "Filtrar ▾" : filtroActual + " ▾"
+        dropdownFiltro.classList.add("hidden")
+        renderFiltrado()
+    })
+})
+
+function renderFiltrado() {
+    section.innerHTML = ""
+    const filtradas = filtroActual === "Todas" ? tareas : tareas.filter(t => t.prioridad === filtroActual)
+    filtradas.forEach(renderTarea)
+    const sinTareas = document.getElementById("sinTareas")
+    sinTareas.classList.toggle("hidden", filtradas.length > 0)
+}
+
 
 /**
  * Inicializa la app: carga tareas desde storage y las pinta.

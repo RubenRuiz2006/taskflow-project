@@ -600,10 +600,40 @@ body.dark .fecha{
 color: rgb(255, 255, 255);
 background-color: #4b5563;
 border-color: #000;
+transition: 0.5s;
+}
+body .fecha{
+
+transition: 0.5s;
 }
 body.dark .fecha:hover{
 transition: 0.5s;
 color: rgb(255, 255, 255);
 background-color: #000000;
 border-color: #000;
+}
+
+body.dark .filtro{
+color: rgb(255, 255, 255);
+background-color: #1f2937;
+border-color: #000;
+}
+body.dark .filtroTodos:hover{
+
+background-color: #4b5563;
+border-color: #000;
+}
+body.dark .botonFiltrar{
+color: rgb(255, 255, 255);
+background-color: #4b5563;
+border-color: #000;
+}
+body.dark .botonFiltrar:hover{
+color: rgb(255, 255, 255);
+background-color:  #111827;
+border-color: #000;
+}
+body.dark .textoTodos{
+color: rgb(255, 255, 255);
+
 }
