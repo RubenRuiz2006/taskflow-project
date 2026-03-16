@@ -5,6 +5,7 @@ const btnOrdenarPrioridad = document.getElementById("botonOrdenarPrioridad")
 const ventanaAñadir = document.getElementById("ventanaAñadir")
 const btnConfirmar = document.getElementById("botonConfirmar")
 const section = document.getElementById("section")
+const inputFecha = document.getElementById("fecha")
 
 const inputNombre = document.getElementById("nombre")
 const inputCategoria = document.getElementById("categoria")
@@ -173,6 +174,7 @@ function limpiarFormulario() {
     errorC.classList.add("hidden")
     inputNombre.classList.remove("border-red-600")
     inputCategoria.classList.remove("border-red-600")
+    inputFecha.value = ""
 }
 
 /**
@@ -184,6 +186,7 @@ function getDatosFormulario() {
         nombre: inputNombre.value.trim(),
         categoria: inputCategoria.value.trim(),
         prioridad: selectPrioridad.value,
+        fecha: inputFecha.value
     }
 }
 
@@ -229,6 +232,17 @@ function ordenarPorPrioridad() {
  * @param {Tarea} tarea
  * @returns {void}
  */
+
+function getFechaInfo(fecha) {
+    if (!fecha) return null
+    const hoy = new Date(); hoy.setHours(0,0,0,0)
+    const d = new Date(fecha + 'T00:00:00')
+    const diff = Math.round((d - hoy) / 86400000)
+    const fmt = d.toLocaleDateString('es-ES', { day: '2-digit', month: 'short' })
+    if (diff < 0) return { texto: 'Vencida · ' + fmt, clase: 'text-red-700 bg-red-100 border-red-300' }
+    if (diff === 0) return { texto: 'Hoy · ' + fmt, clase: 'text-orange-700 bg-orange-100 border-orange-300' }
+    if (diff <= 3) return { texto: 'En ' + diff + 'd · ' + fmt, clase: 'text-orange-700 bg-orange-100 border-orange-300' }
+    return { texto: 'Entrega · ' + fmt, clase: 'text-green-700 bg-green-100 border-green-300'} }
 function renderTarea(tarea) {
     const {id, nombre, categoria, prioridad}=tarea
     const nuevaTarea = document.createElement("div");
@@ -240,7 +254,8 @@ function renderTarea(tarea) {
 <ul class="flex-1 px-12">
     <li class="text-cyan-700 textoB"><strong>Categoría:</strong> ${categoria}</li>
     <li class="${getColorPrioridad(prioridad)}"><strong>Prioridad:</strong> ${prioridad}</li>
-</ul><div class="flex flex-col items-center gap-1.5 mr-2">
+${tarea.fecha ? `<li class="text-sm"><span class="fecha inline-block px-2 py-0.5 rounded-full text-xs font-semibold ${getFechaInfo(tarea.fecha).clase} bg-opacity-20 border border-current">${getFechaInfo(tarea.fecha).texto}</span></li>` : ''}
+    </ul><div class="flex flex-col items-center gap-1.5 mr-2">
    <button class="btnEstado btnEstadoE text-sm px-4 py-2 rounded border transition duration-300 bg-gray-200 text-cyan-700 border-black hover:text-white hover:bg-cyan-700 w-32" data-estado="0">Estado</button>
 
     <button class="buttonQuitar text-sm cursor-pointer bg-gray-200 text-cyan-700 border border-black px-4 py-2 rounded hover:bg-cyan-700 hover:text-white transition duration-300 w-32">Quitar</button>
@@ -291,8 +306,8 @@ const siguiente =actual === 0 ? 1 : (actual % 3) +1
  * @param {Prioridad} prioridad
  * @returns {void}
  */
-function crearTarea(nombre, categoria, prioridad) {
-    const tarea = {id: Date.now(), nombre, categoria, prioridad, estado: 0 }
+function crearTarea(nombre, categoria, prioridad, fecha) {
+    const tarea = {id: Date.now(), nombre, categoria, prioridad, estado: 0, fecha }
     tareas.push(tarea)
     guardarTareas()
     renderTarea(tarea)
@@ -302,7 +317,7 @@ function crearTarea(nombre, categoria, prioridad) {
 
 
 btnConfirmar.addEventListener("click", () => { //para enviar el formulario
-    const { nombre, categoria, prioridad } = getDatosFormulario()
+    const { nombre, categoria, prioridad, fecha } = getDatosFormulario()
 
 
 
@@ -327,7 +342,7 @@ if(categoria === ""){
   inputCategoria.classList.remove("border-red-600")  
 }
 if(!hayError){
-    crearTarea(nombre, categoria, prioridad)
+    crearTarea(nombre, categoria, prioridad, fecha)
     limpiarFormulario()
     cerrarVentanaAñadir()
 }

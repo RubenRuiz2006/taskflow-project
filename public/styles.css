@@ -596,3 +596,14 @@ body.dark .btnEstadoEC{
 color: rgb(0, 0, 0);
 background-color: rgb(70, 193, 209);
 }
+body.dark .fecha{
+color: rgb(255, 255, 255);
+background-color: #4b5563;
+border-color: #000;
+}
+body.dark .fecha:hover{
+transition: 0.5s;
+color: rgb(255, 255, 255);
+background-color: #000000;
+border-color: #000;
+}

@@ -19,6 +19,7 @@ Una web de gestión de tareas, con diferenciación entre categorías y prioridad
 -Opción en las tareas de poner el estado (pendiente, en curso, completada)
 -Los estados perduran aunque se cierre o reinicie la página
 -Boton para ordenar las tareas por prioridad
+-Fecha de entrega
 
 # Estructura de archivos
 -`index.html` -- estructura de lainterfaz
