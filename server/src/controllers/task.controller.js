@@ -30,21 +30,22 @@ function crearTarea(req, res) {
   res.status(201).json(nueva);
 }
 
-function eliminarTarea(req, res) {
-  const id = parseInt(req.params.id);
-
+function eliminarTarea(req, res, next) {
   try {
-    taskService.eliminarTarea(id);
-    res.status(204).send();
-  } catch (error) {
-    if (error.message === "NOT_FOUND") {
-      return res.status(404).json({ error: "Tarea no encontrada" });
+    const id = Number(req.params.id);
+
+    if (isNaN(id)) {
+      throw new Error("BAD_REQUEST");
     }
 
-    res.status(500).json({ error: "Error interno" });
+    taskService.eliminarTarea(id);
+
+    res.status(204).send();
+
+  } catch (error) {
+    next(error);
   }
 }
-
 module.exports = { //lo exporta para routes
   obtenerTareas,
   crearTarea,

@@ -14,3 +14,20 @@ app.use('/api/v1/tasks', taskRoutes); //esta linea conecta todo el router al ser
 app.listen(config.port, () => {
   console.log(`Servidor en http://localhost:${config.port}`); //se pone a escuchar el puerto
 });
+
+//errores, solo se ejecuta si alguien hace next(error)
+app.use((err, req, res, next) => {
+  console.error(err);
+
+  if (err.message === "NOT_FOUND") {
+    return res.status(404).json({ error: "Recurso no encontrado" });
+  }
+
+  if (err.message === "BAD_REQUEST") {
+    return res.status(400).json({ error: "Solicitud inválida" });
+  }
+
+  return res.status(500).json({
+    error: "Error interno del servidor"
+  });
+});

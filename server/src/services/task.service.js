@@ -24,7 +24,7 @@ function eliminarTarea(id){
 const index = tasks.findIndex(t=>t.id === id);
 
 if (index=== -1){
-    throw new Error ("NOT FOUND");
+    throw new Error ("NOT_FOUND");
 }else{
     tasks.splice(index, 1)
 }
