@@ -247,7 +247,8 @@ function getFechaInfo(fecha) {
     if (diff === 0) return { texto: 'Hoy · ' + fmt, clase: 'text-orange-700 bg-orange-100 border-orange-300' }
     if (diff <= 3) return { texto: 'En ' + diff + 'd · ' + fmt, clase: 'text-orange-700 bg-orange-100 border-orange-300' }
     return { texto: 'Entrega · ' + fmt, clase: 'text-green-700 bg-green-100 border-green-300'} }
-function renderTarea(tarea) {
+
+    function renderTarea(tarea) {
     const {id, nombre, categoria, prioridad}=tarea
     const nuevaTarea = document.createElement("div");
     nuevaTarea.className =
@@ -258,7 +259,7 @@ function renderTarea(tarea) {
 <ul class="flex-1 px-4 flex flex-col gap-1">
     <li class="text-cyan-700 textoB whitespace-nowrap"><strong>Categoría:</strong> ${categoria}</li>
     <li class="${getColorPrioridad(prioridad)}  whitespace-nowrap"><strong>Prioridad:</strong> ${prioridad}</li>
-${tarea.fecha ? `<li class="text-sm"><span class="fecha inline-block px-2 py-0.5 rounded-full text-xs font-semibold ${getFechaInfo(tarea.fecha).clase} border">${getFechaInfo(tarea.fecha).texto}</span></li>` : ''}
+${tarea.fecha ? `<li class="text-sm"><span class="fecha inline-block px-2 py-0.5 rounded-full text-xs font-semibold ${getFechaInfo(tarea.fecha).clase} bg-opacity-20 border border-current">${getFechaInfo(tarea.fecha).texto}</span></li>` : ''}
     </ul><div class="flex flex-col items-center gap-1.5 mr-2">
    <button class="btnEstado btnEstadoE text-sm px-4 py-2 rounded border transition duration-300 bg-gray-200 text-cyan-700 border-black hover:text-white hover:bg-cyan-700 w-32" data-estado="0">Estado</button>
 

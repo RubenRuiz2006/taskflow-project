@@ -1,16 +1,16 @@
-const express = require("express")
-const cors = require("cors")
-const config = require("./config/env")
+const express = require("express") //herramientas para hacer el servidor
+const cors = require("cors") //hace que el backend pueda recibir peticiones desde frontend
+const config = require("./config/env") //recupera de tu carpeta .env el puerto (utilizando la libreria process.env)
 
-const app = express()
+const taskRoutes = require('./routes/task.routes'); //conecta con el archivo de routes que a su vez está conectado a controller que a su vez lo está a services
 
-app.use(cors())
-app.use(express.json())
+const app = express()// aquí creas el servidor
 
-app.get("/", (req, res) => {
-  res.json({ message: "API TaskFlow funcionando" })
-})
+app.use(cors()) //middleware global, permite peticiones externas
+app.use(express.json()) //transforma el json, por ejemplo: transforma el json { "nombre": "tarea" } en req.body.nombre
+
+app.use('/api/v1/tasks', taskRoutes); //esta linea conecta todo el router al servidor, significa que Cualquier petición que empiece por:  /api/v1/tasks - la maneja taskRoutes 
 
 app.listen(config.port, () => {
-  console.log(`Servidor escuchando en puerto ${config.port}`)
-})
+  console.log(`Servidor en http://localhost:${config.port}`); //se pone a escuchar el puerto
+});
