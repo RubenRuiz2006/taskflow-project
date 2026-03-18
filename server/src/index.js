@@ -11,9 +11,10 @@ app.use(express.json()) //transforma el json, por ejemplo: transforma el json { 
 
 app.use('/api/v1/tasks', taskRoutes); //esta linea conecta todo el router al servidor, significa que Cualquier petición que empiece por:  /api/v1/tasks - la maneja taskRoutes 
 
-app.listen(config.port, () => {
-  console.log(`Servidor en http://localhost:${config.port}`); //se pone a escuchar el puerto
-});
+app.listen(process.env.PORT || 3000, () => {
+  console.log(`Servidor en http://localhost:${process.env.PORT || 3000}`);
+});//se pone a escuchar el puerto
+
 
 //errores, solo se ejecuta si alguien hace next(error)
 app.use((err, req, res, next) => {
