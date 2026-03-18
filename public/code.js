@@ -1,4 +1,8 @@
+import { getTareas, crearTarea as crearTareaAPI, eliminarTarea as eliminarTareaAPI } from "./api/client.js"
 window.addEventListener("DOMContentLoaded", () => {
+
+
+    
 const contenedor = document.getElementById("contenedor")
 const btnAnadir = document.getElementById("botonAñadir")
 const btnOrdenarPrioridad = document.getElementById("botonOrdenarPrioridad")
@@ -116,27 +120,6 @@ botonTema.addEventListener("click", toggleTema);
 
 
 
-/**
- * Persiste el array `tareas` en `localStorage`.
- * @returns {void}
- */
-function guardarTareas() {
-    localStorage.setItem("tareas", JSON.stringify(tareas))
-}
-
-/**
- * Carga tareas desde `localStorage`.
- * @returns {unknown[]}
- */
-function cargarTareas() {
-    const tareasGuardadas = localStorage.getItem("tareas") // miramos si existen tareas guardadas en localStorage
-    if (!tareasGuardadas) return []
-    try {
-        return JSON.parse(tareasGuardadas)
-    } catch {
-        return []
-    }
-}
 
 /**
  * Normaliza una tarea antigua/externa a la forma actual.
@@ -222,7 +205,7 @@ function ordenarPorPrioridad() {
     const orden = { Alta: 0, Media: 1, Baja: 2 }
 
     tareas.sort((a, b) => (orden[a.prioridad] ?? 999) - (orden[b.prioridad] ?? 999))
-    guardarTareas()
+    
 
     section.innerHTML = ""
     tareas.forEach(renderTarea)
@@ -290,18 +273,17 @@ const siguiente =actual === 0 ? 1 : (actual % 3) +1
     btnEstado.textContent = estados[siguiente].label
     btnEstado.classList.remove("btnEstadoE")
     const t = tareas.find(t => t.id === id)
-    if (t) { t.estado = siguiente; guardarTareas() }
+    if (t) { t.estado = siguiente; }
 })
 
+const btnQuitar = nuevaTarea.querySelector(".buttonQuitar")
 
-    const btnQuitar = nuevaTarea.querySelector(".buttonQuitar") // dentro le añadimos el boton para eliminarlo
-    btnQuitar.addEventListener("click", () => {
-        // boton para borrar cada tarea del DOM y del array
-        nuevaTarea.remove()
-        tareas = tareas.filter(t => t.id !== id)
-        guardarTareas()
-        actualizarSinTareas()
-    })
+    btnQuitar.addEventListener("click", async () => {
+    await eliminarTareaAPI(id)
+    nuevaTarea.remove()
+    tareas = tareas.filter(t => t.id !== id)
+    actualizarSinTareas()
+})
 }
 
 /**
@@ -311,17 +293,21 @@ const siguiente =actual === 0 ? 1 : (actual % 3) +1
  * @param {Prioridad} prioridad
  * @returns {void}
  */
-function crearTarea(nombre, categoria, prioridad, fecha) {
-    const tarea = {id: Date.now(), nombre, categoria, prioridad, estado: 0, fecha }
-    tareas.push(tarea)
-    guardarTareas()
-    if (filtroActual === "Todas" || tarea.prioridad === filtroActual) renderTarea(tarea)
-    actualizarSinTareas()
+async function crearTarea(nombre, categoria, prioridad, fecha) {
+    const error = document.getElementById("estadoError")
+    try {
+        const tarea = await crearTareaAPI({ nombre, categoria, prioridad, fecha })
+        error.classList.add("hidden")
+        tareas.push(tarea)
+        if (filtroActual === "Todas" || tarea.prioridad === filtroActual) renderTarea(tarea)
+        actualizarSinTareas()
+    } catch (e) {
+        error.classList.remove("hidden")
+    }
 }
 
 
-
-btnConfirmar.addEventListener("click", () => { //para enviar el formulario
+btnConfirmar.addEventListener("click", async () => { //para enviar el formulario
     const { nombre, categoria, prioridad, fecha } = getDatosFormulario()
 
 
@@ -386,11 +372,21 @@ function renderFiltrado() {
  * Inicializa la app: carga tareas desde storage y las pinta.
  * @returns {void}
  */
-function init() {
-    tareas = cargarTareas()
-    tareas.forEach(renderTarea)
-    actualizarSinTareas()
-}
+async function init() {
+    const carga = document.getElementById("estadoCarga")
+    const error = document.getElementById("estadoError")
 
+    carga.classList.remove("hidden")
+
+    try {
+        tareas = await getTareas()
+        carga.classList.add("hidden")
+        tareas.forEach(renderTarea)
+        actualizarSinTareas()
+    } catch (e) {
+        carga.classList.add("hidden")
+        error.classList.remove("hidden")
+    }
+}
 init()
 })
