@@ -35,15 +35,15 @@ function eliminarTarea(req, res, next) {
     const id = Number(req.params.id);
 
     if (isNaN(id)) {
-      throw new Error("BAD_REQUEST");
+      throw new Error("BAD_REQUEST"); //error al detectar que el valor introducido no está permitido
     }
 
-    taskService.eliminarTarea(id);
+    taskService.eliminarTarea(id); // el valor si es válido, se pasa a service para verificar que esa tarea existe
 
     res.status(204).send();
 
   } catch (error) {
-    next(error);
+    next(error); //next se lo pasa a Express en index que es donde están definidos los posibles errores
   }
 }
 module.exports = { //lo exporta para routes
