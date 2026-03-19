@@ -1,4 +1,4 @@
-import { getTareas, crearTarea as crearTareaAPI, eliminarTarea as eliminarTareaAPI } from "./api/client.js"
+import { getTareas, crearTarea as crearTareaAPI, eliminarTarea as eliminarTareaAPI } from "./api/client.js" //importamos la parte central de nuestro servidor
 window.addEventListener("DOMContentLoaded", () => {
 
 
@@ -150,7 +150,7 @@ function cerrarVentanaAñadir() {
 }
 
 /**
- * Limpia los campos de entrada de la ventana de alta.
+ * Limpia los campos de entrada de la ventana.
  * @returns {void}
  */
 function limpiarFormulario() {
@@ -231,6 +231,7 @@ function getFechaInfo(fecha) {
     if (diff <= 3) return { texto: 'En ' + diff + 'd · ' + fmt, clase: 'text-orange-700 bg-orange-100 border-orange-300' }
     return { texto: 'Entrega · ' + fmt, clase: 'text-green-700 bg-green-100 border-green-300'} }
 
+    
     function renderTarea(tarea) {
     const {id, nombre, categoria, prioridad}=tarea
     const nuevaTarea = document.createElement("div");

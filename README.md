@@ -35,6 +35,64 @@ Rubén Ruiz Mayorga
 email: ruben.ruiz@alu.ceacfp.es
 Fecha: 12/03/2026
 
+# Estructura del proyecto
+proyecto/
+├── .cursor/
+├── node_modules/
+├── public/
+│ ├── docs/
+│ │ ├── ai/
+│ │ ├── ai-comparison.md
+│ │ ├── cursor-workflow.md
+│ │ ├── experiments.md
+│ │ ├── prompt-engineering.md
+│ │ └── reflection.md
+│ ├── code.js
+│ ├── index.html
+│ └── styles.css
+├── server/
+│ ├── node_modules/
+│ └── src/
+│ ├── config/
+│ │ └── env.js
+│ ├── controllers/
+│ │ └── task.controller.js
+│ ├── routes/
+│ │ └── task.routes.js
+│ ├── services/
+│ │ └── task.service.js
+│ └── index.js
+├── .env
+├── .gitignore
+├── package-lock.json
+├── package.json
+├── index.html (public)
+└── README.md
+
+# MiddleWares
+
+En este proyecto hay 3 MiddleWares entre la petición HTTP y la respuesta que se recibe, registrándose con app.use().
+
+- cors(): Cross-Origin Resource Sharing. Se activa cuando el navegador hace una petición desde un origen diferente, añadiendo las cabeceras HTTP necesarias, si no, no dejaría hacerlas.
+
+- express.json(): Transforma las peticiones POST con formato JSON que llegan en texto plano, los parsea para transformarlos en objetos JavaScript para que sea accesible en req.body.
+
+- MiddleWare de errores (err, req, res, next): Express lo reconoce como un manejador de errores por los cuatro parámetros, los centraliza todos y se ejecuta cuando se llama a next(error).
+
+# Interacción con la API REST
+
+- Obtener tareas:
+GET https://taskflow-project-production-1498.up.railway.app/api/v1/tasks
+
+- Crear tareas:
+Post https://taskflow-project-production-1498.up.railway.app/api/v1/tasks
+Content-Type: application/json
+
+{ "nombre": "ejemploNombre", "categoria": "ejemploCategoria", "prioridad": "ejemploPrioridad" }
+
+- Eliminar tarea:
+DELETE https://taskflow-project-production-1498.up.railway.app/api/v1/tasks/(ID)
+
 # Documentación elaborada por IA
 
 # Lista de Tareas Interactiva — Prácticas
