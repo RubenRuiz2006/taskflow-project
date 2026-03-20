@@ -1,4 +1,4 @@
-Gracias a postman me he asegurado que los paramentros Get Post y Delete funcionan adecuadamente.
+Gracias a Postman me he asegurado que los paramentros Get Post y Delete funcionan adecuadamente.
 
 
 - Con Post tras mandar los datos esenciales he recibido 
@@ -17,7 +17,7 @@ Gracias a postman me he asegurado que los paramentros Get Post y Delete funciona
 } 
 al ya haberlo eliminado
 
-- al intentar hacer un Post pero sin el nombre me ha dado el error 400 Bad request y me ha puesto 
+- Al intentar hacer un Post pero sin el nombre me ha dado el error 400 Bad request y me ha aparecido 
 {
     "error": "Nombre requerido"
 }

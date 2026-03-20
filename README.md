@@ -99,9 +99,11 @@ DELETE https://taskflow-project-production-1498.up.railway.app/api/v1/tasks/(ID)
 
 ## 1. Resumen
 
-Aplicación web de gestión de tareas desarrollada con HTML, CSS y JavaScript vanilla. Permite organizar tareas por nombre, categoría, prioridad y estado, con persistencia automática de datos y soporte para modo oscuro.
+Aplicación web fullstack de gestión de tareas desarrollada con HTML, CSS y JavaScript vanilla en el frontend, y Node.js con Express en el backend. Permite organizar tareas por nombre, categoría, prioridad y estado, con persistencia de datos en servidor y soporte para modo oscuro.
 
-**Tecnologías:** HTML5 · CSS3 · JavaScript ES6+ · TailwindCSS v4 · LocalStorage
+**Tecnologías frontend:** HTML5 · CSS3 · JavaScript ES6+ · TailwindCSS · Fetch API  
+**Tecnologías backend:** Node.js · Express · CORS · dotenv · nodemon  
+**Despliegue:** Vercel (frontend) · Railway (backend)
 
 ---
 
@@ -109,79 +111,138 @@ Aplicación web de gestión de tareas desarrollada con HTML, CSS y JavaScript va
 ```
 /proyecto
 │
-├─ index.html          # Interfaz principal
-├─ styles.css          # Estilos generales y modo oscuro
-├─ code.js             # Lógica de la aplicación
-├─ .cursor/            # Configuración de Cursor AI / MCP
-├─ node_modules/       # Dependencias (no subir al repositorio)
+├─ public/
+│   ├─ index.html          # Interfaz principal
+│   ├─ styles.css          # Estilos generales y modo oscuro
+│   ├─ code.js             # Lógica de la aplicación
+│   └─ api/
+│       └─ client.js       # Capa de red: funciones fetch hacia el backend
+│
+├─ server/
+│   ├─ src/
+│   │   ├─ index.js        # Punto de entrada del servidor Express
+│   │   ├─ config/
+│   │   │   └─ env.js      # Carga y exporta variables de entorno
+│   │   ├─ controllers/
+│   │   │   └─ task.controller.js  # Recibe peticiones HTTP y valida datos
+│   │   ├─ routes/
+│   │   │   └─ task.routes.js      # Mapea URLs a controladores
+│   │   └─ services/
+│   │       └─ task.service.js     # Lógica de negocio y persistencia en memoria
+│   ├─ .env                # Variables de entorno (no subir a GitHub)
+│   └─ package.json
+│
 ├─ .gitignore
-├─ package.json
-├─ package-lock.json
-└─ postcss.config.js   # Configuración de TailwindCSS
+└─ README.md
 ```
 
 ---
 
-## 3. Funcionalidades
+## 3. Arquitectura por capas
 
-### Gestión de tareas
-- **Añadir** tareas con nombre, categoría y prioridad (`Baja`, `Media`, `Alta`).
-- **Eliminar** tareas individualmente con el botón *Quitar*.
+El backend sigue una arquitectura de tres capas separadas por responsabilidad:
+
+**Routes** → recibe la petición HTTP y la dirige al controlador correcto.  
+**Controller** → extrae y valida los datos del `req.body`. Si son incorrectos devuelve un error HTTP. Si son correctos llama al service.  
+**Service** → contiene la lógica pura. Gestiona el array en memoria que actúa como base de datos provisional.
+
+---
+
+## 4. Middlewares
+
+Un middleware es una función que se ejecuta entre que llega la petición HTTP y que se envía la respuesta. Se registran con `app.use()` y se ejecutan en orden.
+
+**`cors()`** — Añade las cabeceras `Access-Control-Allow-Origin` necesarias para que el navegador permita peticiones desde un origen diferente (por ejemplo desde `localhost:5500` al servidor en `localhost:3000`).
+
+**`express.json()`** — Parsea el body de las peticiones POST de texto JSON a objeto JavaScript, disponible en `req.body`.
+
+**Middleware de errores** `(err, req, res, next)` — Captura cualquier error lanzado con `next(error)` en los controladores. Mapea el mensaje del error al código HTTP correcto: `NOT_FOUND` → 404, `BAD_REQUEST` → 400, cualquier otro → 500.
+
+---
+
+## 5. API REST — Endpoints
+
+**Base URL:** `https://taskflow-project-production-1498.up.railway.app`
+
+### GET /api/v1/tasks
+Obtiene todas las tareas.
+```
+GET /api/v1/tasks
+Respuesta 200: [ { id, nombre, categoria, prioridad, estado, fecha } ]
+```
+
+### POST /api/v1/tasks
+Crea una nueva tarea.
+```
+POST /api/v1/tasks
+Content-Type: application/json
+
+{ "nombre": "Estudiar", "categoria": "trabajo", "prioridad": "Alta" }
+
+Respuesta 201: { id, nombre, categoria, prioridad, estado: 0, fecha: null }
+Respuesta 400: { "error": "Nombre requerido" }
+```
+
+### DELETE /api/v1/tasks/:id
+Elimina una tarea por ID.
+```
+DELETE /api/v1/tasks/1
+
+Respuesta 204: (sin body)
+Respuesta 404: { "error": "Recurso no encontrado" }
+```
+
+---
+
+## 6. Funcionalidades del frontend
+
+- **Añadir** tareas con nombre, categoría, prioridad y fecha opcional.
+- **Eliminar** tareas individualmente conectando con el backend.
 - **Ordenar** por prioridad: `Alta → Media → Baja`.
+- **Filtrar** por prioridad con dropdown.
 - **Estado** de cada tarea con ciclo: `Pendiente → En curso → Completada`.
-
-### Persistencia
-- Todas las tareas y su estado se guardan en `localStorage`.
-- El tema (claro/oscuro) también persiste entre sesiones.
-
-### Diseño responsivo
-- Layout basado en Flexbox con `max-width`, `min-width` y `w-full` para adaptarse a distintos tamaños de pantalla.
-- Uso de `shrink-0` y `min-w-0` para evitar desbordamientos en pantallas pequeñas.
-- Los elementos de cada tarea (nombre, detalles, botones) se reorganizan correctamente sin romper el diseño.
-
-### Modo oscuro / claro
-- Activado con un botón con icono dinámico (sol/luna).
-- Implementado con la clase `body.dark` en CSS.
-- Persistencia mediante `localStorage`.
+- **Fecha de entrega** con indicador visual (vencida, hoy, próxima).
+- **Modo oscuro/claro** con persistencia en localStorage.
+- **Estados de red**: indicador de carga, éxito y error visual si el servidor no responde.
 
 ---
 
-## 4. Cómo usar la aplicación
+## 7. Cómo ejecutar en local
 
-1. Abrir `index.html` en un navegador moderno.
-2. Pulsar **Añadir tarea** para abrir el formulario.
-3. Rellenar nombre, categoría y prioridad, luego confirmar.
-4. Usar el botón **Estado** en cada tarea para actualizar su progreso.
-5. Ordenar tareas por prioridad con el botón correspondiente.
-6. Cambiar entre modo claro y oscuro con el icono de la cabecera.
-7. Todo se guarda automáticamente — los datos persisten al cerrar el navegador.
+**Backend:**
+```bash
+cd server
+npm install
+npm run dev
+```
+El servidor arranca en `http://localhost:3000`.
 
----
-
-## 5. Uso de Cursor AI
-
-Se recomienda Cursor AI para mejorar la productividad en el proyecto:
-
-- **Documentación automática** de funciones y flujos.
-- **Few-shot prompting**: dar ejemplos al modelo antes de pedir tareas complejas.
-- **Refactorización**: renombrar variables o funciones globalmente.
-- **Comparación de funciones**: determinar cuál es más eficiente.
-- **MCP (Model Context Protocol)**: permite que la IA acceda al contexto real del proyecto.
+**Frontend:**
+Abrir `public/index.html` con Live Server en VS Code (`http://localhost:5500`).
 
 ---
 
-## 6. Buenas prácticas aplicadas
+## 8. Despliegue
 
-- `trim()` en todos los inputs para evitar espacios innecesarios.
-- Validación de campos antes de guardar cualquier tarea.
-- IDs únicos con `Date.now()` para identificar y eliminar tareas de forma segura.
-- Uso de `classList.add/remove` en lugar de `style.display` para compatibilidad con Tailwind.
-- Separación clara entre lógica (code.js), estilos (styles.css) y estructura (index.html).
+- **Frontend:** Vercel, conectado al repositorio de GitHub. Se actualiza automáticamente con cada push.
+- **Backend:** Railway, con `Root Directory` apuntando a `server/`. Usa `npm start` para producción.
 
 ---
 
-## 7. Autor
+## 9. Buenas prácticas aplicadas
+
+- Separación clara en capas: routes, controller, service.
+- Validación de datos en el controller antes de llegar al service.
+- Manejo global de errores con middleware de 4 parámetros.
+- Variables de entorno con dotenv, nunca hardcodeadas.
+- `.env` en `.gitignore` para no exponer datos sensibles.
+- `trim()` en todos los inputs del frontend.
+- Gestión visual de estados de red: carga, éxito y error.
+
+---
+
+## 10. Autor
 
 **Rubén Ruiz Mayorga**  
 Email: ruben.ruiz@alu.ceacfp.es  
-Fecha: 12/03/2026
+Fecha: 20/03/2026
