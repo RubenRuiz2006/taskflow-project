@@ -1,4 +1,4 @@
-const express = require("express") //herramientas para hacer el servidor
+const express = require("express") //instancias herramientas para hacer el servidor
 const cors = require("cors") //hace que el backend pueda recibir peticiones desde frontend
 const config = require("./config/env") //recupera de tu carpeta .env el puerto (utilizando la libreria process.env)
 
