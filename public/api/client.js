@@ -1,4 +1,4 @@
-const BASE_URL = "https://taskflow-project-production-1498.up.railway.app/api/v1/tasks"
+const BASE_URL = "https://taskflow-server-azure.vercel.app/api/v1/tasks"
 
 export async function getTareas() {
     const res = await fetch(BASE_URL)
