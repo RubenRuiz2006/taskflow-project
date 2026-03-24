@@ -159,23 +159,6 @@ Respuesta 400: { "error": "Solicitud inválida" }
 
 ---
 
-## 9. Despliegue en Railway
-
-1. Conectar el repositorio de GitHub en Railway
-2. Configurar `Root Directory` → `server`
-3. Railway ejecuta `npm start` automáticamente
-4. Generar dominio público en **Networking → Generate Domain**
-
-El script `start` en `package.json` usa `node` en vez de `nodemon` porque en producción no se necesita recarga automática:
-```json
-"scripts": {
-  "dev": "nodemon src/index.js",
-  "start": "node src/index.js"
-}
-```
-
----
-
 ## 10. Autor
 
 **Rubén Ruiz Mayorga**  
