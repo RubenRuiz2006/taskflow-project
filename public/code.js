@@ -364,7 +364,11 @@ document.querySelectorAll(".dropdown-item").forEach(item => {
 
 function renderFiltrado() {
     section.innerHTML = ""
-    const filtradas = filtroActual === "Todas" ? tareas : tareas.filter(t => t.prioridad === filtroActual)
+    const filtradas = filtroActual === "Todas"
+        ? tareas
+        : isNaN(filtroActual)
+            ? tareas.filter(t => t.prioridad === filtroActual)
+            : tareas.filter(t => t.estado === Number(filtroActual))
     filtradas.forEach(renderTarea)
     const sinTareas = document.getElementById("sinTareas")
     sinTareas.classList.toggle("hidden", filtradas.length > 0)
@@ -387,6 +391,44 @@ btnEliminarCompletadas.addEventListener("click", async () => {
     actualizarSinTareas()
 })
 
+function actualizarDropdownEstados() {
+    const itemsExistentes = dropdownFiltro.querySelectorAll(".dropdown-estado, .separador-estados")
+    itemsExistentes.forEach(i => i.remove())
+
+    const separador = document.createElement("div")
+    separador.className = "separador-estados border-t border-gray-200 my-1"
+    dropdownFiltro.appendChild(separador)
+
+    const estados = [
+        { label: "Pendiente", valor: 1 },
+        { label: "En curso", valor: 2 },
+        { label: "Completada", valor: 3 },
+    ]
+
+    estados.forEach(({ label, valor }) => {
+        const div = document.createElement("div")
+        if(valor===1){
+            div.className="filtroTodos dropdown-estado dropdown-item px-4 py-2 cursor-pointer hover:bg-cyan-100 text-sm text-orange-700"
+        }
+        if(valor===2){
+            div.className="filtroTodos dropdown-estado dropdown-item px-4 py-2 cursor-pointer hover:bg-cyan-100 text-sm text-blue-600"
+        }
+        if(valor===3){
+            div.className="filtroTodos dropdown-estado dropdown-item px-4 py-2 cursor-pointer hover:bg-cyan-100 text-sm text-green-600"
+        }
+        
+        div.dataset.filtro = valor
+        div.textContent = label
+        div.addEventListener("click", () => {
+            filtroActual = String(valor)
+            botonFiltrar.textContent = label + " ▾"
+            dropdownFiltro.classList.add("hidden")
+            renderFiltrado()
+        })
+        dropdownFiltro.appendChild(div)
+    })
+}
+
 /**
  * Inicializa la app: carga tareas desde storage y las pinta.
  * @returns {void}
@@ -401,6 +443,7 @@ async function init() {
         tareas = await getTareas()
         carga.classList.add("hidden")
         tareas.forEach(renderTarea)
+        actualizarDropdownEstados()
         actualizarSinTareas()
     } catch (e) {
         carga.classList.add("hidden")

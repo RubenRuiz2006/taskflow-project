@@ -158,6 +158,19 @@ Respuesta 400: { "error": "Solicitud inválida" }
 - `500` — error interno del servidor
 
 ---
+## 9. Resumen 
+Cuando el frontend quiere hacer algo (obtener tareas, crear una, borrarla), llama a una función de client.js que hace un fetch a la URL del servidor en Vercel.
+
+Esa petición llega a index.js, que es el punto de entrada del servidor. Ahí están los middlewares: cors() que permite la petición del frontend, y express.json() que convierte el body JSON en objeto JavaScript.
+
+Luego index.js la manda a task.routes.js según la URL y el método HTTP. Si es GET, POST o DELETE, lo dirige al controlador correspondiente.
+
+El controlador task.controller.js recibe la petición, extrae los datos del req.body, los valida y si algo está mal devuelve un error 400. Si todo es correcto llama al service.
+
+El service task.service.js es donde está la lógica pura. Tiene un array en memoria que hace de base de datos provisional. Crea la tarea, la busca, la elimina. Si algo falla lanza un error.
+
+Ese error sube hasta el middleware de errores al final de index.js, que decide si responder con 404, 400 o 500.
+La respuesta viaja de vuelta al frontend como JSON, donde client.js la recibe y la convierte a objeto JavaScript para que code.js pueda usarla.
 
 ## 10. Autor
 
