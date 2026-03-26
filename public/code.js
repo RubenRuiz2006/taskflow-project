@@ -421,7 +421,7 @@ function actualizarDropdownEstados() {
         div.textContent = label
         div.addEventListener("click", () => {
             filtroActual = String(valor)
-            botonFiltrar.textContent = label + " ▾"
+            botonFiltrar.textContent = label
             dropdownFiltro.classList.add("hidden")
             renderFiltrado()
         })
