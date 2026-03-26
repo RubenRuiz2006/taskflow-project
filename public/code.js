@@ -10,6 +10,8 @@ const ventanaAñadir = document.getElementById("ventanaAñadir")
 const btnConfirmar = document.getElementById("botonConfirmar")
 const section = document.getElementById("section")
 const inputFecha = document.getElementById("fecha")
+const btnCompletarTodo = document.getElementById("botonCompletarTodo")
+const btnEliminarCompletadas = document.getElementById("botonEliminarCompletadas")
 
 const inputNombre = document.getElementById("nombre")
 const inputCategoria = document.getElementById("categoria")
@@ -368,6 +370,22 @@ function renderFiltrado() {
     sinTareas.classList.toggle("hidden", filtradas.length > 0)
 }
 
+btnCompletarTodo.addEventListener("click", () => {
+    tareas.forEach(tarea => { tarea.estado = 3 })
+    section.innerHTML = ""
+    tareas.forEach(renderTarea)
+})
+
+btnEliminarCompletadas.addEventListener("click", async () => {
+    const completadas = tareas.filter(t => t.estado === 3)
+    for (const tarea of completadas) {
+        await eliminarTareaAPI(tarea.id)
+    }
+    tareas = tareas.filter(t => t.estado !== 3)
+    section.innerHTML = ""
+    tareas.forEach(renderTarea)
+    actualizarSinTareas()
+})
 
 /**
  * Inicializa la app: carga tareas desde storage y las pinta.

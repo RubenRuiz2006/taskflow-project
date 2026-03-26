@@ -637,3 +637,23 @@ body.dark .textoTodos{
 color: rgb(255, 255, 255);
 
 }
+
+body.dark .botonCompletarTodo{
+color: rgb(0, 0, 0);
+background-color: rgb(80, 247, 141);
+border: #000;
+}
+body.dark .botonCompletarTodo:hover{
+color: rgb(0, 0, 0);
+background-color: rgb(70, 209, 121);
+}
+
+body.dark .botonEliminarCompletadas{
+color: rgb(0, 0, 0);
+background-color: rgb(255, 108, 108);
+border: #000;
+}
+body.dark .botonEliminarCompletadas:hover{
+color: rgb(0, 0, 0);
+background-color: rgb(238, 64, 64);
+}
